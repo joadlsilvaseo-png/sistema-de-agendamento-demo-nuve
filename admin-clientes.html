@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Gestão de clientes do Nuvé Studio.">
+
+  <meta name="theme-color" content="#34233A">
+
+  <title>Clientes | Nuvé Studio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="admin-clientes.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="page-header">
+
+      <div class="top-bar">
+
+        <a href="principal.html" class="back-button" aria-label="Voltar">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+
+
+        <a href="principal.html" class="brand">
+
+          <span class="brand-symbol">
+            N
+          </span>
+
+          <span class="brand-text">
+            <strong>Nuvé</strong>
+            <small>Studio</small>
+          </span>
+
+        </a>
+
+
+        <span class="admin-badge">
+          Admin
+        </span>
+
+      </div>
+
+
+      <!-- ===================================================
+           HERO
+      ==================================================== -->
+
+      <section class="admin-hero">
+
+        <div class="hero-decoration hero-decoration--one"></div>
+        <div class="hero-decoration hero-decoration--two"></div>
+
+        <div class="hero-content">
+
+          <span class="hero-eyebrow">
+            Relacionamento
+          </span>
+
+          <h1>
+            Clientes
+          </h1>
+
+          <p>
+            Consulte histórico, frequência e informações das clientes do estúdio.
+          </p>
+
+        </div>
+
+
+        <div class="hero-icon">
+
+          <svg viewBox="0 0 24 24" fill="none">
+
+            <circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.8" />
+
+            <circle cx="17" cy="9" r="2" stroke="currentColor" stroke-width="1.8" />
+
+            <path d="M3.5 19C3.5 15.7 5.8 13.5 9 13.5C12.2 13.5 14.5 15.7 14.5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+            <path d="M15 14C17.9 14 20 15.8 20.5 18.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+          </svg>
+
+        </div>
+
+      </section>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+      <!-- ===================================================
+           MÉTRICAS
+      ==================================================== -->
+
+      <section class="metrics-grid">
+
+        <article class="metric-card">
+
+          <span class="metric-label">
+            Clientes
+          </span>
+
+          <strong id="metric-clients">
+            0
+          </strong>
+
+          <small>
+            cadastradas
+          </small>
+
+        </article>
+
+
+        <article class="metric-card">
+
+          <span class="metric-label">
+            Atendimentos
+          </span>
+
+          <strong id="metric-visits">
+            0
+          </strong>
+
+          <small>
+            registrados
+          </small>
+
+        </article>
+
+
+        <article class="metric-card">
+
+          <span class="metric-label">
+            Recorrentes
+          </span>
+
+          <strong id="metric-recurring">
+            0
+          </strong>
+
+          <small>
+            2+ atendimentos
+          </small>
+
+        </article>
+
+
+        <article class="metric-card">
+
+          <span class="metric-label">
+            Movimentado
+          </span>
+
+          <strong id="metric-revenue" class="metric-money">
+            R$ 0
+          </strong>
+
+          <small>
+            serviços registrados
+          </small>
+
+        </article>
+
+      </section>
+
+
+      <!-- ===================================================
+           PESQUISA
+      ==================================================== -->
+
+      <section class="search-section">
+
+        <form id="search-form" class="search-form" role="search">
+
+          <span class="search-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.8" />
+
+              <path d="M16 16L21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+            </svg>
+
+          </span>
+
+
+          <input id="search-input" type="search" placeholder="Buscar cliente..." autocomplete="off" aria-label="Buscar clientes">
+
+
+          <button id="clear-search-button" type="button" class="clear-search-button" aria-label="Limpar pesquisa" hidden>
+            ×
+          </button>
+
+        </form>
+
+
+        <div class="filters">
+
+          <button type="button" class="filter-button filter-button--active" data-filter="all">
+            Todas
+          </button>
+
+          <button type="button" class="filter-button" data-filter="recurring">
+            Recorrentes
+          </button>
+
+          <button type="button" class="filter-button" data-filter="recent">
+            Recentes
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           LISTA
+      ==================================================== -->
+
+      <section class="clients-section">
+
+        <div class="section-heading">
+
+          <div>
+
+            <span class="section-eyebrow">
+              Base de clientes
+            </span>
+
+            <h2>
+              Suas clientes
+            </h2>
+
+          </div>
+
+
+          <span id="clients-count" class="clients-count">
+            0 clientes
+          </span>
+
+        </div>
+
+
+        <div id="clients-list" class="clients-list"></div>
+
+
+        <div id="empty-state" class="empty-state" hidden>
+
+          <span class="empty-state-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8" />
+
+              <path d="M5 21C5 17 8 14.5 12 14.5C16 14.5 19 17 19 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+            </svg>
+
+          </span>
+
+          <strong>
+            Nenhuma cliente encontrada
+          </strong>
+
+          <p>
+            Tente outro nome ou altere o filtro selecionado.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           INFO
+      ==================================================== -->
+
+      <aside class="demo-info-card">
+
+        <span class="demo-info-icon">
+          i
+        </span>
+
+        <div>
+
+          <strong>
+            Histórico construído automaticamente
+          </strong>
+
+          <p>
+            Os números desta demonstração são calculados a partir dos agendamentos armazenados localmente.
+          </p>
+
+        </div>
+
+      </aside>
+
+    </main>
+
+
+    <!-- =====================================================
+         MODAL DE CLIENTE
+    ====================================================== -->
+
+    <div id="client-modal" class="modal-overlay" hidden>
+
+      <section class="client-modal" role="dialog" aria-modal="true" aria-labelledby="modal-client-name">
+
+        <div class="modal-handle"></div>
+
+
+        <div class="modal-header">
+
+          <div id="modal-avatar" class="modal-avatar">
+            MA
+          </div>
+
+
+          <div class="modal-client-heading">
+
+            <span>
+              Perfil da cliente
+            </span>
+
+            <h2 id="modal-client-name">
+              Marina Alves
+            </h2>
+
+            <small id="modal-client-phone">
+              —
+            </small>
+
+          </div>
+
+
+          <button type="button" id="close-modal-button" class="close-modal-button" aria-label="Fechar">
+            ×
+          </button>
+
+        </div>
+
+
+        <!-- RESUMO -->
+
+        <div class="modal-metrics">
+
+          <div>
+
+            <span>
+              Visitas
+            </span>
+
+            <strong id="modal-visits">
+              0
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Total
+            </span>
+
+            <strong id="modal-spend">
+              R$ 0
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Última visita
+            </span>
+
+            <strong id="modal-last-visit">
+              —
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- HISTÓRICO -->
+
+        <div class="history-section">
+
+          <div class="history-heading">
+
+            <span class="section-eyebrow">
+              Histórico
+            </span>
+
+            <h3>
+              Atendimentos
+            </h3>
+
+          </div>
+
+
+          <div id="client-history-list" class="client-history-list"></div>
+
+
+          <div id="history-empty" class="history-empty" hidden>
+            Nenhum atendimento registrado.
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <!-- =====================================================
+         NAVEGAÇÃO
+    ====================================================== -->
+
+    <nav class="admin-navigation" aria-label="Navegação administrativa">
+
+      <a href="principal.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path d="M4 11L12 4L20 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+
+          <path d="M6 10V20H18V10" stroke="currentColor" stroke-width="1.8" />
+
+        </svg>
+
+        <span>
+          Início
+        </span>
+
+      </a>
+
+
+      <a href="admin-agendamentos.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" />
+
+          <path d="M8 3V7M16 3V7M4 10H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Agenda
+        </span>
+
+      </a>
+
+
+      <a href="admin-clientes.html" class="admin-navigation-item admin-navigation-item--active">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.8" />
+
+          <circle cx="17" cy="9" r="2" stroke="currentColor" stroke-width="1.8" />
+
+          <path d="M3.5 19C3.5 15.7 5.8 13.5 9 13.5C12.2 13.5 14.5 15.7 14.5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+          <path d="M15 14C17.9 14 20 15.8 20.5 18.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Clientes
+        </span>
+
+      </a>
+
+
+      <a href="dashboard.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path d="M5 19V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+          <path d="M12 19V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+          <path d="M19 19V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Dashboard
+        </span>
+
+      </a>
+
+    </nav>
+
+  </div>
+
+
+  <script src="admin-clientes.js"></script>
+
+</body>
+
+</html>

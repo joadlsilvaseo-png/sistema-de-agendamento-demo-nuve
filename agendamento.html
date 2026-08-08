@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Escolha a data e o horário do seu atendimento no Nuvé Studio.">
+
+  <meta name="theme-color" content="#34233A">
+
+  <title>Agendamento | Nuvé Studio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="agendamento.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="page-header">
+
+      <div class="top-bar">
+
+        <button type="button" id="back-button" class="back-button" aria-label="Voltar">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+
+
+        <a href="principal.html" class="brand">
+
+          <span class="brand-symbol">
+            N
+          </span>
+
+          <span class="brand-text">
+            <strong>Nuvé</strong>
+            <small>Studio</small>
+          </span>
+
+        </a>
+
+
+        <span class="demo-badge">
+          Demo
+        </span>
+
+      </div>
+
+
+      <!-- ===================================================
+           PROGRESSO
+      ==================================================== -->
+
+      <div class="booking-progress">
+
+        <div class="progress-item progress-item--completed">
+
+          <span class="progress-number">
+            ✓
+          </span>
+
+          <span class="progress-label">
+            Serviço
+          </span>
+
+        </div>
+
+        <span class="progress-line progress-line--active"></span>
+
+        <div class="progress-item progress-item--active">
+
+          <span class="progress-number">
+            2
+          </span>
+
+          <span class="progress-label">
+            Horário
+          </span>
+
+        </div>
+
+        <span class="progress-line"></span>
+
+        <div class="progress-item">
+
+          <span class="progress-number">
+            3
+          </span>
+
+          <span class="progress-label">
+            Confirmar
+          </span>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+      <!-- ===================================================
+           TÍTULO
+      ==================================================== -->
+
+      <section class="page-intro">
+
+        <span class="section-eyebrow">
+          Agendamento
+        </span>
+
+        <h1>
+          Quando você quer vir?
+        </h1>
+
+        <p>
+          Escolha uma data disponível e depois selecione o melhor horário para o seu atendimento.
+        </p>
+
+      </section>
+
+
+      <!-- ===================================================
+           SERVIÇO SELECIONADO
+      ==================================================== -->
+
+      <section class="selected-service-card" aria-labelledby="service-summary-title">
+
+        <div class="selected-service-icon">
+
+          <svg viewBox="0 0 24 24" fill="none">
+
+            <path d="M12 3L13.4 6.6L17 8L13.4 9.4L12 13L10.6 9.4L7 8L10.6 6.6L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+            <path d="M18.5 13L19.3 15.2L21.5 16L19.3 16.8L18.5 19L17.7 16.8L15.5 16L17.7 15.2L18.5 13Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+          </svg>
+
+        </div>
+
+
+        <div class="selected-service-content">
+
+          <span class="selected-service-label">
+            Serviço selecionado
+          </span>
+
+          <strong id="service-summary-title">
+            Carregando...
+          </strong>
+
+          <div class="selected-service-meta">
+
+            <span id="selected-service-duration">
+              —
+            </span>
+
+            <span class="meta-dot"></span>
+
+            <span id="selected-service-price">
+              —
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <button type="button" id="change-service-button" class="change-service-button">
+          Alterar
+        </button>
+
+      </section>
+
+
+      <!-- ===================================================
+           DATA
+      ==================================================== -->
+
+      <section class="date-section" aria-labelledby="date-title">
+
+        <div class="section-heading">
+
+          <span class="section-step">
+            01
+          </span>
+
+          <div>
+
+            <span class="section-eyebrow">
+              Escolha o dia
+            </span>
+
+            <h2 id="date-title">
+              Datas disponíveis
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="date-navigation">
+
+          <button type="button" id="previous-dates-button" class="date-navigation-button" aria-label="Ver datas anteriores" disabled>
+            ‹
+          </button>
+
+          <div id="date-list" class="date-list" aria-label="Lista de datas disponíveis"></div>
+
+          <button type="button" id="next-dates-button" class="date-navigation-button" aria-label="Ver próximas datas">
+            ›
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           HORÁRIO
+      ==================================================== -->
+
+      <section id="time-section" class="time-section" aria-labelledby="time-title">
+
+        <div class="section-heading">
+
+          <span class="section-step">
+            02
+          </span>
+
+          <div>
+
+            <span class="section-eyebrow">
+              Escolha o horário
+            </span>
+
+            <h2 id="time-title">
+              Horários disponíveis
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div id="selected-date-label" class="selected-date-label">
+          Selecione uma data acima.
+        </div>
+
+
+        <div id="time-list" class="time-list"></div>
+
+
+        <div id="no-times-message" class="empty-state" hidden>
+
+          <span class="empty-state-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8" />
+
+              <path d="M12 8V12L15 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+            </svg>
+
+          </span>
+
+          <strong>
+            Nenhum horário disponível
+          </strong>
+
+          <p>
+            Escolha outra data para continuar.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           AVISO DEMO
+      ==================================================== -->
+
+      <aside class="demo-info-card">
+
+        <span class="demo-info-icon">
+          i
+        </span>
+
+        <div>
+
+          <strong>
+            Agenda demonstrativa
+          </strong>
+
+          <p>
+            Os horários desta versão são simulados. Um horário escolhido aqui aparecerá depois na visão administrativa da demonstração.
+          </p>
+
+        </div>
+
+      </aside>
+
+
+      <div class="bottom-space"></div>
+
+    </main>
+
+
+    <!-- =====================================================
+         RESUMO INFERIOR
+    ====================================================== -->
+
+    <div id="booking-footer" class="booking-footer" hidden>
+
+      <div class="booking-footer-inner">
+
+        <div class="booking-summary">
+
+          <span>
+            Seu agendamento
+          </span>
+
+          <strong id="booking-summary-main">
+            —
+          </strong>
+
+          <small id="booking-summary-service">
+            —
+          </small>
+
+        </div>
+
+
+        <button type="button" id="continue-button" class="continue-button">
+
+          <span>
+            Continuar
+          </span>
+
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script src="agendamento.js"></script>
+
+</body>
+
+</html>

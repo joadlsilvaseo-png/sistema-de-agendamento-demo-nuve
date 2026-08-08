@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Confirme seu agendamento no Nuvé Studio.">
+
+  <meta name="theme-color" content="#34233A">
+
+  <title>Confirmar Agendamento | Nuvé Studio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="confirmacao.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="page-header">
+
+      <div class="top-bar">
+
+        <button type="button" id="back-button" class="back-button" aria-label="Voltar">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+
+
+        <a href="principal.html" class="brand">
+
+          <span class="brand-symbol">
+            N
+          </span>
+
+          <span class="brand-text">
+            <strong>Nuvé</strong>
+            <small>Studio</small>
+          </span>
+
+        </a>
+
+
+        <span class="demo-badge">
+          Demo
+        </span>
+
+      </div>
+
+
+      <!-- PROGRESSO -->
+
+      <div class="booking-progress">
+
+        <div class="progress-item progress-item--completed">
+
+          <span class="progress-number">
+            ✓
+          </span>
+
+          <span class="progress-label">
+            Serviço
+          </span>
+
+        </div>
+
+
+        <span class="progress-line progress-line--active"></span>
+
+
+        <div class="progress-item progress-item--completed">
+
+          <span class="progress-number">
+            ✓
+          </span>
+
+          <span class="progress-label">
+            Horário
+          </span>
+
+        </div>
+
+
+        <span class="progress-line progress-line--active"></span>
+
+
+        <div class="progress-item progress-item--active">
+
+          <span class="progress-number">
+            3
+          </span>
+
+          <span class="progress-label">
+            Confirmar
+          </span>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO ANTES DA CONFIRMAÇÃO
+    ====================================================== -->
+
+    <main id="confirmation-content" class="main-content">
+
+      <section class="page-intro">
+
+        <span class="section-eyebrow">
+          Quase pronto
+        </span>
+
+        <h1>
+          Confira seu agendamento
+        </h1>
+
+        <p>
+          Revise os detalhes abaixo antes de confirmar seu horário.
+        </p>
+
+      </section>
+
+
+      <!-- ===================================================
+           CLIENTE
+      ==================================================== -->
+
+      <section class="client-card">
+
+        <div class="client-avatar">
+
+          <span id="client-initials">
+            MA
+          </span>
+
+        </div>
+
+
+        <div class="client-info">
+
+          <span>
+            Agendamento para
+          </span>
+
+          <strong id="client-name">
+            Marina Alves
+          </strong>
+
+          <small id="client-phone">
+            (11) 99999-1020
+          </small>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           RESUMO
+      ==================================================== -->
+
+      <section class="booking-card">
+
+        <div class="booking-card-header">
+
+          <div>
+
+            <span class="section-eyebrow">
+              Resumo
+            </span>
+
+            <h2>
+              Seu atendimento
+            </h2>
+
+          </div>
+
+
+          <span class="booking-status">
+            Aguardando confirmação
+          </span>
+
+        </div>
+
+
+        <!-- SERVIÇO -->
+
+        <div class="booking-detail">
+
+          <span class="booking-detail-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <path d="M12 3L13.4 6.6L17 8L13.4 9.4L12 13L10.6 9.4L7 8L10.6 6.6L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+              <path d="M18.5 13L19.3 15.2L21.5 16L19.3 16.8L18.5 19L17.7 16.8L15.5 16L17.7 15.2L18.5 13Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+            </svg>
+
+          </span>
+
+
+          <div class="booking-detail-content">
+
+            <span>
+              Serviço
+            </span>
+
+            <strong id="summary-service">
+              —
+            </strong>
+
+            <small id="summary-category">
+              —
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <!-- DATA -->
+
+        <div class="booking-detail">
+
+          <span class="booking-detail-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" />
+
+              <path d="M8 3V7M16 3V7M4 10H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+            </svg>
+
+          </span>
+
+
+          <div class="booking-detail-content">
+
+            <span>
+              Data
+            </span>
+
+            <strong id="summary-date">
+              —
+            </strong>
+
+            <small id="summary-weekday">
+              —
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <!-- HORÁRIO -->
+
+        <div class="booking-detail">
+
+          <span class="booking-detail-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8" />
+
+              <path d="M12 8V12L15 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+            </svg>
+
+          </span>
+
+
+          <div class="booking-detail-content">
+
+            <span>
+              Horário
+            </span>
+
+            <strong id="summary-time">
+              —
+            </strong>
+
+            <small id="summary-duration">
+              —
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <!-- VALOR -->
+
+        <div class="booking-total">
+
+          <div>
+
+            <span>
+              Valor do serviço
+            </span>
+
+            <small>
+              Pagamento realizado diretamente com a profissional
+            </small>
+
+          </div>
+
+          <strong id="summary-price">
+            —
+          </strong>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           ALTERAR
+      ==================================================== -->
+
+      <button type="button" id="edit-booking-button" class="edit-booking-button">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path d="M14 5L19 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+          <path d="M4 20L7.5 19L18 8.5C18.8 7.7 18.8 6.4 18 5.6L17.4 5C16.6 4.2 15.3 4.2 14.5 5L4 15.5L3 20L4 20Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+
+        </svg>
+
+        Alterar data ou horário
+
+      </button>
+
+
+      <!-- ===================================================
+           AVISO
+      ==================================================== -->
+
+      <aside class="info-card">
+
+        <span class="info-icon">
+          i
+        </span>
+
+        <div>
+
+          <strong>
+            Demonstração interativa
+          </strong>
+
+          <p>
+            Ao confirmar, este agendamento será salvo apenas neste navegador e poderá ser visualizado posteriormente no modo Administrador.
+          </p>
+
+        </div>
+
+      </aside>
+
+
+      <div class="bottom-space"></div>
+
+    </main>
+
+
+    <!-- =====================================================
+         SUCESSO
+    ====================================================== -->
+
+    <main id="success-content" class="success-content" hidden>
+
+      <section class="success-card">
+
+        <div class="success-icon">
+
+          <svg viewBox="0 0 24 24" fill="none">
+
+            <path d="M7 12.5L10.2 15.5L17.5 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+
+          </svg>
+
+        </div>
+
+
+        <span class="success-eyebrow">
+          Tudo certo
+        </span>
+
+
+        <h1>
+          Agendamento confirmado!
+        </h1>
+
+
+        <p>
+          Seu horário foi reservado com sucesso.
+        </p>
+
+
+        <div class="success-booking">
+
+          <span id="success-service">
+            —
+          </span>
+
+          <strong id="success-date-time">
+            —
+          </strong>
+
+          <small id="success-price">
+            —
+          </small>
+
+        </div>
+
+
+        <div class="success-divider"></div>
+
+
+        <p class="success-demo-copy">
+          Agora experimente como esse mesmo agendamento aparece para a profissional.
+        </p>
+
+
+        <button type="button" id="admin-view-button" class="admin-view-button">
+
+          <span>
+
+            <small>
+              Continuar demonstração
+            </small>
+
+            <strong>
+              Ver na visão Administradora
+            </strong>
+
+          </span>
+
+
+          <svg viewBox="0 0 24 24" fill="none">
+
+            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+          </svg>
+
+        </button>
+
+
+        <a href="principal.html" class="home-button">
+          Voltar ao início
+        </a>
+
+      </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER FIXO
+    ====================================================== -->
+
+    <div id="confirmation-footer" class="confirmation-footer">
+
+      <div class="confirmation-footer-inner">
+
+        <div class="footer-summary">
+
+          <span>
+            Total
+          </span>
+
+          <strong id="footer-price">
+            —
+          </strong>
+
+        </div>
+
+
+        <button type="button" id="confirm-button" class="confirm-button">
+
+          <span>
+            Confirmar agendamento
+          </span>
+
+
+          <svg viewBox="0 0 24 24" fill="none">
+
+            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+          </svg>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script src="confirmacao.js"></script>
+
+</body>
+
+</html>

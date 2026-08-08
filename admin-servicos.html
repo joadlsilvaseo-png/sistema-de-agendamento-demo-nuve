@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Gestão de serviços do Nuvé Studio.">
+
+  <meta name="theme-color" content="#34233A">
+
+  <title>Serviços | Nuvé Studio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="admin-servicos.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="page-header">
+
+      <div class="top-bar">
+
+        <a href="principal.html" class="back-button" aria-label="Voltar">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+
+
+        <a href="principal.html" class="brand">
+
+          <span class="brand-symbol">
+            N
+          </span>
+
+          <span class="brand-text">
+            <strong>Nuvé</strong>
+            <small>Studio</small>
+          </span>
+
+        </a>
+
+
+        <span class="admin-badge">
+          Admin
+        </span>
+
+      </div>
+
+
+      <!-- ===================================================
+           HERO
+      ==================================================== -->
+
+      <section class="admin-hero">
+
+        <div class="hero-decoration hero-decoration--one"></div>
+        <div class="hero-decoration hero-decoration--two"></div>
+
+        <div class="hero-content">
+
+          <span class="hero-eyebrow">
+            Catálogo
+          </span>
+
+          <h1>
+            Serviços
+          </h1>
+
+          <p>
+            Gerencie procedimentos, preços, duração e disponibilidade dos serviços do estúdio.
+          </p>
+
+        </div>
+
+
+        <div class="hero-icon">
+
+          <svg viewBox="0 0 24 24" fill="none">
+
+            <path d="M12 3L13.5 7L17.5 8.5L13.5 10L12 14L10.5 10L6.5 8.5L10.5 7L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+            <path d="M18 14L18.8 16.2L21 17L18.8 17.8L18 20L17.2 17.8L15 17L17.2 16.2L18 14Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+          </svg>
+
+        </div>
+
+      </section>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+      <!-- ===================================================
+           MÉTRICAS
+      ==================================================== -->
+
+      <section class="metrics-grid">
+
+        <article class="metric-card">
+
+          <span class="metric-label">
+            Serviços
+          </span>
+
+          <strong id="metric-total">
+            0
+          </strong>
+
+          <small>
+            cadastrados
+          </small>
+
+        </article>
+
+
+        <article class="metric-card">
+
+          <span class="metric-label">
+            Ativos
+          </span>
+
+          <strong id="metric-active">
+            0
+          </strong>
+
+          <small>
+            disponíveis
+          </small>
+
+        </article>
+
+
+        <article class="metric-card">
+
+          <span class="metric-label">
+            Inativos
+          </span>
+
+          <strong id="metric-inactive">
+            0
+          </strong>
+
+          <small>
+            indisponíveis
+          </small>
+
+        </article>
+
+
+        <article class="metric-card">
+
+          <span class="metric-label">
+            Preço médio
+          </span>
+
+          <strong id="metric-average" class="metric-money">
+            R$ 0
+          </strong>
+
+          <small>
+            catálogo ativo
+          </small>
+
+        </article>
+
+      </section>
+
+
+      <!-- ===================================================
+           AÇÕES
+      ==================================================== -->
+
+      <section class="actions-section">
+
+        <form id="search-form" class="search-form" role="search">
+
+          <span class="search-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.8" />
+
+              <path d="M16 16L21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+            </svg>
+
+          </span>
+
+
+          <input id="search-input" type="search" placeholder="Buscar serviço..." autocomplete="off">
+
+
+          <button id="clear-search-button" type="button" class="clear-search-button" aria-label="Limpar pesquisa" hidden>
+            ×
+          </button>
+
+        </form>
+
+
+        <button id="new-service-button" type="button" class="new-service-button">
+
+          <svg viewBox="0 0 24 24" fill="none">
+
+            <path d="M12 5V19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+            <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+          </svg>
+
+          <span>
+            Novo serviço
+          </span>
+
+        </button>
+
+      </section>
+
+
+      <!-- ===================================================
+           FILTROS
+      ==================================================== -->
+
+      <div class="filters">
+
+        <button type="button" class="filter-button filter-button--active" data-filter="all">
+          Todos
+        </button>
+
+        <button type="button" class="filter-button" data-filter="active">
+          Ativos
+        </button>
+
+        <button type="button" class="filter-button" data-filter="inactive">
+          Inativos
+        </button>
+
+        <button type="button" class="filter-button" data-filter="gel">
+          Gel
+        </button>
+
+        <button type="button" class="filter-button" data-filter="manicure">
+          Manicure
+        </button>
+
+        <button type="button" class="filter-button" data-filter="pedicure">
+          Pedicure
+        </button>
+
+      </div>
+
+
+      <!-- ===================================================
+           LISTA
+      ==================================================== -->
+
+      <section class="services-section">
+
+        <div class="section-heading">
+
+          <div>
+
+            <span class="section-eyebrow">
+              Catálogo
+            </span>
+
+            <h2>
+              Procedimentos
+            </h2>
+
+          </div>
+
+
+          <span id="services-count" class="services-count">
+            0 serviços
+          </span>
+
+        </div>
+
+
+        <div id="services-list" class="services-list"></div>
+
+
+        <div id="empty-state" class="empty-state" hidden>
+
+          <span class="empty-state-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <path d="M12 3L13.5 7L17.5 8.5L13.5 10L12 14L10.5 10L6.5 8.5L10.5 7L12 3Z" stroke="currentColor" stroke-width="1.7" />
+
+            </svg>
+
+          </span>
+
+          <strong>
+            Nenhum serviço encontrado
+          </strong>
+
+          <p>
+            Ajuste os filtros ou cadastre um novo procedimento.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           INFO
+      ==================================================== -->
+
+      <aside class="demo-info-card">
+
+        <span class="demo-info-icon">
+          i
+        </span>
+
+        <div>
+
+          <strong>
+            Catálogo demonstrativo
+          </strong>
+
+          <p>
+            Alterações realizadas aqui ficam armazenadas somente neste navegador e podem ser utilizadas durante a demonstração.
+          </p>
+
+        </div>
+
+      </aside>
+
+    </main>
+
+
+    <!-- =====================================================
+         MODAL
+    ====================================================== -->
+
+    <div id="service-modal" class="modal-overlay" hidden>
+
+      <section class="service-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+
+        <div class="modal-handle"></div>
+
+
+        <div class="modal-header">
+
+          <div>
+
+            <span class="section-eyebrow">
+              Catálogo
+            </span>
+
+            <h2 id="modal-title">
+              Editar serviço
+            </h2>
+
+          </div>
+
+
+          <button id="close-modal-button" type="button" class="close-modal-button" aria-label="Fechar">
+            ×
+          </button>
+
+        </div>
+
+
+        <form id="service-form">
+
+          <input type="hidden" id="service-id">
+
+
+          <!-- NOME -->
+
+          <div class="form-group">
+
+            <label for="service-name">
+              Nome do serviço
+            </label>
+
+            <input id="service-name" type="text" placeholder="Ex.: Manutenção em Gel" required>
+
+          </div>
+
+
+          <!-- CATEGORIA -->
+
+          <div class="form-group">
+
+            <label for="service-category">
+              Categoria
+            </label>
+
+            <select id="service-category" required>
+
+              <option value="">
+                Selecione
+              </option>
+
+              <option value="Unhas em Gel">
+                Unhas em Gel
+              </option>
+
+              <option value="Manicure">
+                Manicure
+              </option>
+
+              <option value="Pedicure">
+                Pedicure
+              </option>
+
+              <option value="Outros">
+                Outros
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-row">
+
+            <!-- PREÇO -->
+
+            <div class="form-group">
+
+              <label for="service-price">
+                Preço
+              </label>
+
+              <div class="input-prefix">
+
+                <span>
+                  R$
+                </span>
+
+                <input id="service-price" type="number" min="0" step="1" required>
+
+              </div>
+
+            </div>
+
+
+            <!-- DURAÇÃO -->
+
+            <div class="form-group">
+
+              <label for="service-duration">
+                Duração
+              </label>
+
+              <div class="input-suffix">
+
+                <input id="service-duration" type="number" min="10" step="5" required>
+
+                <span>
+                  min
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- STATUS -->
+
+          <label class="availability-card">
+
+            <span class="availability-copy">
+
+              <strong>
+                Serviço disponível
+              </strong>
+
+              <small>
+                Clientes poderão selecionar este procedimento.
+              </small>
+
+            </span>
+
+
+            <span class="switch">
+
+              <input id="service-active" type="checkbox" checked>
+
+              <span class="switch-track">
+
+                <span class="switch-thumb"></span>
+
+              </span>
+
+            </span>
+
+          </label>
+
+
+          <!-- AÇÕES -->
+
+          <div class="modal-actions">
+
+            <button id="delete-service-button" type="button" class="delete-button" hidden>
+              Excluir
+            </button>
+
+
+            <button type="submit" class="save-button">
+
+              Salvar serviço
+
+              <svg viewBox="0 0 24 24" fill="none">
+
+                <path d="M7 12L10.5 15.5L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+              </svg>
+
+            </button>
+
+          </div>
+
+        </form>
+
+      </section>
+
+    </div>
+
+
+    <!-- =====================================================
+         NAVEGAÇÃO ADMIN
+    ====================================================== -->
+
+    <nav class="admin-navigation" aria-label="Navegação administrativa">
+
+      <a href="principal.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M4 11L12 4L20 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M6 10V20H18V10" stroke="currentColor" stroke-width="1.8" />
+        </svg>
+
+        <span>
+          Início
+        </span>
+
+      </a>
+
+
+      <a href="admin-agendamentos.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" />
+
+          <path d="M8 3V7M16 3V7M4 10H20" stroke="currentColor" stroke-width="1.8" />
+
+        </svg>
+
+        <span>
+          Agenda
+        </span>
+
+      </a>
+
+
+      <a href="admin-clientes.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.8" />
+
+          <path d="M3.5 19C3.5 15.7 5.8 13.5 9 13.5C12.2 13.5 14.5 15.7 14.5 19" stroke="currentColor" stroke-width="1.8" />
+
+        </svg>
+
+        <span>
+          Clientes
+        </span>
+
+      </a>
+
+
+      <a href="dashboard.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path d="M5 19V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+          <path d="M12 19V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+          <path d="M19 19V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Dashboard
+        </span>
+
+      </a>
+
+    </nav>
+
+  </div>
+
+
+  <script src="admin-servicos.js"></script>
+
+</body>
+
+</html>

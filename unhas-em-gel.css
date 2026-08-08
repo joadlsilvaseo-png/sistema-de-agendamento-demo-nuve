@@ -1,0 +1,961 @@
+/* =========================================================
+   NUVÉ STUDIO
+   unhas-em-gel.css
+========================================================= */
+
+:root {
+  --primary: #34233a;
+  --primary-dark: #241829;
+  --primary-soft: #5a3d60;
+
+  --accent: #b87872;
+  --accent-dark: #945e59;
+  --accent-soft: #ead2ce;
+
+  --gold: #c6a56b;
+
+  --background: #f8f4ef;
+  --surface: #ffffff;
+  --surface-soft: #f3ece6;
+
+  --text: #2f2930;
+  --text-soft: #746c73;
+  --text-light: #9a9298;
+
+  --border: #e9e0da;
+  --border-dark: #d8cdc6;
+
+  --shadow: 0 8px 26px rgba(52, 35, 58, 0.08);
+
+  --shadow-strong: 0 18px 42px rgba(52, 35, 58, 0.16);
+
+  --radius-small: 12px;
+  --radius-medium: 18px;
+  --radius-large: 24px;
+  --radius-xl: 30px;
+
+  --font-body: "DM Sans", sans-serif;
+  --font-display: "Playfair Display", serif;
+
+  --transition: 180ms ease;
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(184, 120, 114, 0.13),
+      transparent 32%
+    ),
+    var(--background);
+
+  color: var(--text);
+
+  font-family: var(--font-body);
+  font-size: 16px;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+
+  cursor: pointer;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+svg {
+  display: block;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app-shell {
+  width: 100%;
+  max-width: 920px;
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.page-header {
+  padding: 22px 18px 0;
+}
+
+/* =========================================================
+   TOPO
+========================================================= */
+
+.top-bar {
+  display: grid;
+
+  grid-template-columns:
+    44px
+    1fr
+    auto;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 22px;
+}
+
+.back-button {
+  width: 44px;
+  height: 44px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid var(--border);
+
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.8);
+
+  color: var(--primary);
+
+  box-shadow: 0 5px 16px rgba(52, 35, 58, 0.04);
+}
+
+.back-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* =========================================================
+   MARCA
+========================================================= */
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.brand-symbol {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border-radius: 13px;
+
+  background: linear-gradient(145deg, var(--primary), var(--primary-soft));
+
+  color: #ffffff;
+
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+
+  line-height: 1;
+}
+
+.brand-text strong {
+  color: var(--primary);
+
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.brand-text small {
+  margin-top: 4px;
+
+  color: var(--text-soft);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.demo-badge {
+  padding: 6px 10px;
+
+  border: 1px solid rgba(198, 165, 107, 0.42);
+
+  border-radius: 999px;
+
+  color: #8b6a37;
+
+  font-size: 9px;
+  font-weight: 900;
+
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+  position: relative;
+
+  overflow: hidden;
+
+  min-height: 220px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 30px 25px;
+
+  border-radius: var(--radius-xl);
+
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+
+  box-shadow: var(--shadow-strong);
+}
+
+.hero-decoration {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.hero-decoration--one {
+  width: 220px;
+  height: 220px;
+
+  top: -145px;
+  right: -70px;
+
+  background: rgba(198, 165, 107, 0.16);
+}
+
+.hero-decoration--two {
+  width: 150px;
+  height: 150px;
+
+  bottom: -100px;
+  left: 25%;
+
+  background: rgba(184, 120, 114, 0.15);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+
+  max-width: 520px;
+}
+
+.hero-eyebrow {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #e8d6b8;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  color: #ffffff;
+
+  font-family: var(--font-display);
+  font-size: clamp(30px, 8vw, 44px);
+
+  font-weight: 700;
+
+  line-height: 1.08;
+}
+
+.hero h1 em {
+  color: #dfb6ae;
+
+  font-style: normal;
+}
+
+.hero p {
+  max-width: 430px;
+
+  margin-top: 13px;
+
+  color: rgba(255, 255, 255, 0.68);
+
+  font-size: 13px;
+
+  line-height: 1.55;
+}
+
+.hero-icon {
+  position: relative;
+  z-index: 2;
+
+  width: 75px;
+  height: 75px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  border-radius: 25px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: #e5beb6;
+
+  backdrop-filter: blur(10px);
+}
+
+.hero-icon svg {
+  width: 44px;
+  height: 44px;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main-content {
+  padding: 30px 18px 30px;
+}
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro-section {
+  margin-bottom: 20px;
+}
+
+.section-eyebrow {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: var(--accent-dark);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.intro-section h2 {
+  color: var(--primary);
+
+  font-family: var(--font-display);
+  font-size: 27px;
+
+  line-height: 1.15;
+}
+
+.intro-section p {
+  max-width: 600px;
+
+  margin-top: 7px;
+
+  color: var(--text-soft);
+
+  font-size: 13px;
+
+  line-height: 1.55;
+}
+
+/* =========================================================
+   SERVIÇOS
+========================================================= */
+
+.services-list {
+  display: grid;
+
+  gap: 13px;
+}
+
+.service-card {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+
+  padding: 19px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-large);
+
+  background: var(--surface);
+
+  color: inherit;
+
+  text-align: left;
+
+  box-shadow: 0 5px 20px rgba(52, 35, 58, 0.045);
+
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background var(--transition);
+}
+
+.service-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: var(--shadow);
+}
+
+/* SELECIONADO */
+
+.service-card.is-selected {
+  border-color: rgba(184, 120, 114, 0.72);
+
+  background: linear-gradient(145deg, #ffffff, #fcf7f5);
+
+  box-shadow: 0 10px 30px rgba(184, 120, 114, 0.13);
+}
+
+/* =========================================================
+   CABEÇALHO DO CARD
+========================================================= */
+
+.service-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.service-icon {
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 16px;
+
+  background: var(--surface-soft);
+
+  color: var(--accent-dark);
+
+  transition:
+    background var(--transition),
+    color var(--transition);
+}
+
+.service-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.service-card.is-selected .service-icon {
+  background: var(--accent-soft);
+
+  color: var(--primary);
+}
+
+/* =========================================================
+   RADIO VISUAL
+========================================================= */
+
+.selection-circle {
+  width: 25px;
+  height: 25px;
+
+  display: grid;
+  place-items: center;
+
+  border: 2px solid var(--border-dark);
+
+  border-radius: 50%;
+
+  transition:
+    border-color var(--transition),
+    background var(--transition);
+}
+
+.selection-circle span {
+  width: 11px;
+  height: 11px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  opacity: 0;
+
+  transform: scale(0.5);
+
+  transition:
+    opacity var(--transition),
+    transform var(--transition);
+}
+
+.service-card.is-selected .selection-circle {
+  border-color: var(--accent);
+}
+
+.service-card.is-selected .selection-circle span {
+  opacity: 1;
+
+  transform: scale(1);
+}
+
+/* =========================================================
+   TEXTO
+========================================================= */
+
+.service-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-content strong {
+  color: var(--primary);
+
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.service-description {
+  margin-top: 6px;
+
+  color: var(--text-soft);
+
+  font-size: 12px;
+
+  line-height: 1.55;
+}
+
+/* =========================================================
+   FOOTER DO SERVIÇO
+========================================================= */
+
+.service-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  padding-top: 14px;
+
+  border-top: 1px solid var(--border);
+}
+
+.service-price {
+  color: var(--primary);
+
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.service-duration {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  color: var(--text-soft);
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.service-duration svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.info-card {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+
+  margin-top: 28px;
+
+  padding: 17px;
+
+  border: 1px solid rgba(198, 165, 107, 0.28);
+
+  border-radius: var(--radius-large);
+
+  background: #f4eddf;
+}
+
+.info-icon {
+  width: 31px;
+  height: 31px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: var(--gold);
+
+  color: #ffffff;
+
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.info-card strong {
+  display: block;
+
+  color: var(--primary);
+
+  font-size: 13px;
+}
+
+.info-card p {
+  margin-top: 4px;
+
+  color: var(--text-soft);
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
+   ESPAÇO PARA BARRA FIXA
+========================================================= */
+
+.bottom-space {
+  height: 100px;
+}
+
+/* =========================================================
+   BARRA INFERIOR
+========================================================= */
+
+.selection-bar {
+  position: fixed;
+
+  z-index: 50;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  padding: 12px 14px max(12px, env(safe-area-inset-bottom));
+
+  background: rgba(248, 244, 239, 0.9);
+
+  border-top: 1px solid rgba(52, 35, 58, 0.07);
+
+  backdrop-filter: blur(18px);
+
+  animation: selectionBarIn 220ms ease;
+}
+
+@keyframes selectionBarIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.selection-bar-content {
+  width: 100%;
+  max-width: 884px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 14px;
+
+  margin: 0 auto;
+
+  padding: 12px 14px;
+
+  border-radius: 21px;
+
+  background: var(--surface);
+
+  box-shadow: 0 10px 34px rgba(52, 35, 58, 0.14);
+}
+
+/* =========================================================
+   SERVIÇO SELECIONADO
+========================================================= */
+
+.selected-service-info {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+}
+
+.selected-service-info > span {
+  color: var(--accent-dark);
+
+  font-size: 9px;
+  font-weight: 900;
+
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.selected-service-info strong {
+  overflow: hidden;
+
+  margin-top: 2px;
+
+  color: var(--primary);
+
+  font-size: 13px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selected-service-info small {
+  margin-top: 2px;
+
+  color: var(--text-soft);
+
+  font-size: 10px;
+}
+
+/* =========================================================
+   CONTINUAR
+========================================================= */
+
+.continue-button {
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  flex-shrink: 0;
+
+  padding: 0 17px;
+
+  border-radius: 15px;
+
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  box-shadow: 0 8px 18px rgba(52, 35, 58, 0.18);
+
+  transition: transform var(--transition);
+}
+
+.continue-button:hover {
+  transform: translateY(-1px);
+}
+
+.continue-button svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgba(184, 120, 114, 0.3);
+
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 700px) {
+  .page-header {
+    padding: 30px 30px 0;
+  }
+
+  .main-content {
+    padding: 36px 30px;
+  }
+
+  .hero {
+    min-height: 260px;
+
+    padding: 38px 34px;
+  }
+
+  .hero-icon {
+    width: 96px;
+    height: 96px;
+
+    border-radius: 30px;
+  }
+
+  .hero-icon svg {
+    width: 54px;
+    height: 54px;
+  }
+
+  .services-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 15px;
+  }
+
+  .service-card {
+    min-height: 245px;
+  }
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 1024px) {
+  body {
+    padding: 24px 0;
+  }
+
+  .app-shell {
+    overflow: hidden;
+
+    border: 1px solid rgba(52, 35, 58, 0.06);
+
+    border-radius: 34px;
+
+    background: rgba(248, 244, 239, 0.92);
+
+    box-shadow: 0 30px 80px rgba(52, 35, 58, 0.1);
+  }
+
+  .selection-bar {
+    background: rgba(248, 244, 239, 0.82);
+  }
+}
+
+/* =========================================================
+   CELULAR PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+  .hero {
+    min-height: 230px;
+
+    padding: 27px 21px;
+  }
+
+  .hero-icon {
+    width: 61px;
+    height: 61px;
+
+    border-radius: 20px;
+  }
+
+  .hero-icon svg {
+    width: 35px;
+    height: 35px;
+  }
+
+  .selection-bar-content {
+    padding: 10px 11px;
+  }
+
+  .continue-button {
+    padding: 0 13px;
+  }
+}
+
+@media (max-width: 350px) {
+  .hero-icon {
+    display: none;
+  }
+
+  .selected-service-info small {
+    display: none;
+  }
+}

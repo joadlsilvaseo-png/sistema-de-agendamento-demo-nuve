@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Gestão de agendamentos do Nuvé Studio.">
+
+  <meta name="theme-color" content="#34233A">
+
+  <title>Agendamentos | Nuvé Studio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="admin-agendamentos.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="page-header">
+
+      <div class="top-bar">
+
+        <a href="principal.html" class="back-button" aria-label="Voltar para página principal">
+
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+
+        </a>
+
+
+        <a href="principal.html" class="brand">
+
+          <span class="brand-symbol">
+            N
+          </span>
+
+          <span class="brand-text">
+            <strong>Nuvé</strong>
+            <small>Studio</small>
+          </span>
+
+        </a>
+
+
+        <span class="admin-badge">
+          Admin
+        </span>
+
+      </div>
+
+
+      <!-- ===================================================
+           HERO
+      ==================================================== -->
+
+      <section class="admin-hero">
+
+        <div class="hero-decoration hero-decoration--one"></div>
+        <div class="hero-decoration hero-decoration--two"></div>
+
+        <div class="hero-content">
+
+          <span class="hero-eyebrow">
+            Área administrativa
+          </span>
+
+          <h1>
+            Agendamentos
+          </h1>
+
+          <p>
+            Acompanhe a agenda, confirme atendimentos e visualize os próximos horários do estúdio.
+          </p>
+
+        </div>
+
+
+        <div class="hero-icon" aria-hidden="true">
+
+          <svg viewBox="0 0 24 24" fill="none">
+
+            <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.7" />
+
+            <path d="M8 3V7M16 3V7M4 10H20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+
+            <path d="M8 14H11M13 14H16M8 17H11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+
+          </svg>
+
+        </div>
+
+      </section>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+      <!-- ===================================================
+           RESUMO
+      ==================================================== -->
+
+      <section class="summary-section" aria-label="Resumo da agenda">
+
+        <article class="summary-card">
+
+          <span class="summary-label">
+            Hoje
+          </span>
+
+          <strong id="metric-today">
+            0
+          </strong>
+
+          <small>
+            atendimentos
+          </small>
+
+        </article>
+
+
+        <article class="summary-card">
+
+          <span class="summary-label">
+            Confirmados
+          </span>
+
+          <strong id="metric-confirmed">
+            0
+          </strong>
+
+          <small>
+            próximos
+          </small>
+
+        </article>
+
+
+        <article class="summary-card">
+
+          <span class="summary-label">
+            Pendentes
+          </span>
+
+          <strong id="metric-pending">
+            0
+          </strong>
+
+          <small>
+            aguardando ação
+          </small>
+
+        </article>
+
+
+        <article class="summary-card">
+
+          <span class="summary-label">
+            Previsto
+          </span>
+
+          <strong id="metric-revenue" class="summary-value-money">
+            R$ 0
+          </strong>
+
+          <small>
+            próximos serviços
+          </small>
+
+        </article>
+
+      </section>
+
+
+      <!-- ===================================================
+           ÚLTIMO AGENDAMENTO DA CLIENTE
+      ==================================================== -->
+
+      <section id="latest-booking-section" class="latest-booking-section" hidden>
+
+        <div class="latest-booking-header">
+
+          <span class="latest-dot"></span>
+
+          <span>
+            Criado agora pela visão Cliente
+          </span>
+
+        </div>
+
+
+        <article class="latest-booking-card">
+
+          <div class="latest-booking-date">
+
+            <span id="latest-booking-day">
+              12
+            </span>
+
+            <small id="latest-booking-month">
+              AGO
+            </small>
+
+          </div>
+
+
+          <div class="latest-booking-info">
+
+            <strong id="latest-booking-client">
+              Marina Alves
+            </strong>
+
+            <span id="latest-booking-service">
+              Manutenção em Gel
+            </span>
+
+            <small id="latest-booking-time">
+              14:30
+            </small>
+
+          </div>
+
+
+          <span class="latest-booking-status">
+            Novo
+          </span>
+
+        </article>
+
+      </section>
+
+
+      <!-- ===================================================
+           BUSCA
+      ==================================================== -->
+
+      <section class="tools-section">
+
+        <form id="search-form" class="search-form" role="search">
+
+          <span class="search-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.8" />
+
+              <path d="M16 16L21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+            </svg>
+
+          </span>
+
+
+          <input id="search-input" type="search" autocomplete="off" placeholder="Buscar cliente ou serviço..." aria-label="Buscar agendamentos">
+
+
+          <button id="clear-search-button" class="clear-search-button" type="button" aria-label="Limpar pesquisa" hidden>
+            ×
+          </button>
+
+        </form>
+
+
+        <!-- FILTROS -->
+
+        <div class="filters" role="group" aria-label="Filtrar agendamentos">
+
+          <button type="button" class="filter-button" data-filter="today">
+            Hoje
+          </button>
+
+          <button type="button" class="filter-button filter-button--active" data-filter="upcoming">
+            Próximos
+          </button>
+
+          <button type="button" class="filter-button" data-filter="all">
+            Todos
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           CABEÇALHO DA LISTA
+      ==================================================== -->
+
+      <section class="appointments-section">
+
+        <div class="section-heading">
+
+          <div>
+
+            <span class="section-eyebrow">
+              Agenda
+            </span>
+
+            <h2 id="appointments-title">
+              Próximos atendimentos
+            </h2>
+
+          </div>
+
+
+          <span id="appointments-count" class="appointments-count">
+            0 agendamentos
+          </span>
+
+        </div>
+
+
+        <!-- LISTA GERADA NO JS -->
+
+        <div id="appointments-list" class="appointments-list"></div>
+
+
+        <!-- VAZIO -->
+
+        <div id="empty-state" class="empty-state" hidden>
+
+          <span class="empty-state-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" />
+
+              <path d="M8 3V7M16 3V7M4 10H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+            </svg>
+
+          </span>
+
+          <strong>
+            Nenhum agendamento encontrado
+          </strong>
+
+          <p>
+            Ajuste o filtro ou faça um novo agendamento pela visão Cliente.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           INFORMAÇÃO DA DEMO
+      ==================================================== -->
+
+      <aside class="demo-info-card">
+
+        <span class="demo-info-icon">
+          i
+        </span>
+
+        <div>
+
+          <strong>
+            Agenda conectada à experiência da cliente
+          </strong>
+
+          <p>
+            Todo novo agendamento realizado no modo Cliente é inserido automaticamente nesta agenda demonstrativa.
+          </p>
+
+        </div>
+
+      </aside>
+
+    </main>
+
+
+    <!-- =====================================================
+         NAVEGAÇÃO ADMIN
+    ====================================================== -->
+
+    <nav class="admin-navigation" aria-label="Navegação administrativa">
+
+      <a href="principal.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path d="M4 11L12 4L20 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+
+          <path d="M6 10V20H18V10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+
+        </svg>
+
+        <span>
+          Início
+        </span>
+
+      </a>
+
+
+      <a href="admin-agendamentos.html" class="admin-navigation-item admin-navigation-item--active">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" />
+
+          <path d="M8 3V7M16 3V7M4 10H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Agenda
+        </span>
+
+      </a>
+
+
+      <a href="admin-clientes.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.8" />
+
+          <circle cx="17" cy="9" r="2" stroke="currentColor" stroke-width="1.8" />
+
+          <path d="M3.5 19C3.5 15.7 5.8 13.5 9 13.5C12.2 13.5 14.5 15.7 14.5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+          <path d="M15 14C17.9 14 20 15.8 20.5 18.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Clientes
+        </span>
+
+      </a>
+
+
+      <a href="dashboard.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path d="M5 19V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+          <path d="M12 19V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+          <path d="M19 19V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Dashboard
+        </span>
+
+      </a>
+
+    </nav>
+
+  </div>
+
+
+  <script src="admin-agendamentos.js"></script>
+
+</body>
+
+</html>

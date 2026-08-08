@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Demonstração de sistema de gestão e agendamento para Nail Designers.">
+
+  <meta name="theme-color" content="#34233A">
+
+  <title>Nuvé Studio | Demonstração</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="principal.css">
+</head>
+
+<body data-page="principal" data-demo-mode="cliente">
+
+  <div class="app-shell">
+
+    <!-- ======================================================
+         CABEÇALHO
+    ======================================================= -->
+
+    <header class="main-header">
+
+      <div class="brand-row">
+
+        <a href="principal.html" class="brand" aria-label="Nuvé Studio - Página principal">
+          <span class="brand-symbol" aria-hidden="true">
+            N
+          </span>
+
+          <span class="brand-text">
+            <strong>Nuvé</strong>
+            <small>Studio</small>
+          </span>
+        </a>
+
+        <span class="demo-badge">
+          Demonstração
+        </span>
+
+      </div>
+
+
+      <!-- ====================================================
+           CHAVE CLIENTE / ADMIN
+      ===================================================== -->
+
+      <section class="demo-mode-card" aria-labelledby="demo-mode-title">
+
+        <div class="demo-mode-copy">
+          <span class="demo-mode-eyebrow">
+            Visualização
+          </span>
+
+          <strong id="demo-mode-title">
+            Explore os dois lados do sistema
+          </strong>
+        </div>
+
+        <div class="demo-mode-control">
+
+          <span id="demo-client-label" class="demo-mode-label demo-mode-label--active">
+            Cliente
+          </span>
+
+          <label class="mode-switch">
+            <input id="demo-mode-toggle" type="checkbox" role="switch" aria-label="Alternar entre visão da cliente e visão administrativa" aria-checked="false">
+
+            <span class="mode-switch-track">
+              <span class="mode-switch-thumb"></span>
+            </span>
+          </label>
+
+          <span id="demo-admin-label" class="demo-mode-label">
+            Admin
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- ====================================================
+           PERFIL
+      ===================================================== -->
+
+      <div class="profile-card">
+
+        <div class="profile-content">
+
+          <div class="profile-topline">
+
+            <span id="profile-mode-badge" class="profile-mode-badge">
+              Área da cliente
+            </span>
+
+          </div>
+
+          <p id="profile-greeting" class="profile-greeting">
+            Olá, seja bem-vinda
+          </p>
+
+          <h1 id="profile-name" class="profile-name">
+            Isabele Mariana
+          </h1>
+
+          <p id="profile-description" class="profile-description">
+            Seu próximo momento de cuidado começa aqui.
+          </p>
+
+        </div>
+
+        <a id="profile-action" href="meu-perfil.html" class="profile-avatar" aria-label="Acessar meu perfil">
+          <span id="profile-initials">
+            MA
+          </span>
+        </a>
+
+      </div>
+
+
+      <!-- ====================================================
+           PESQUISA DA CLIENTE
+      ===================================================== -->
+
+      <div id="client-search-area" class="client-search-area">
+
+        <form id="service-search-form" class="search-form" role="search">
+
+          <span class="search-icon" aria-hidden="true">
+
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.8" />
+
+              <path d="M16 16L21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+
+          </span>
+
+          <input id="service-search-input" type="search" placeholder="Qual cuidado você procura?" autocomplete="off" aria-label="Pesquisar serviços">
+
+          <button type="button" id="clear-search-button" class="clear-search-button" aria-label="Limpar pesquisa" hidden>
+            ×
+          </button>
+
+        </form>
+
+      </div>
+
+    </header>
+
+
+    <!-- ======================================================
+         CONTEÚDO
+    ======================================================= -->
+
+    <main class="main-content">
+
+
+      <!-- ====================================================
+           VISÃO CLIENTE
+      ===================================================== -->
+
+      <div id="client-view" class="mode-view client-view">
+
+
+        <!-- PRÓXIMO AGENDAMENTO -->
+
+        <section class="next-appointment-section" aria-labelledby="next-appointment-title">
+
+          <div class="section-heading section-heading--inline">
+
+            <div>
+              <span class="section-eyebrow">
+                Sua agenda
+              </span>
+
+              <h2 id="next-appointment-title">
+                Próximo horário
+              </h2>
+            </div>
+
+            <span class="appointment-status">
+              Confirmado
+            </span>
+
+          </div>
+
+
+          <article class="next-appointment-card">
+
+            <div class="appointment-date">
+
+              <span class="appointment-day">
+                12
+              </span>
+
+              <span class="appointment-month">
+                AGO
+              </span>
+
+            </div>
+
+
+            <div class="appointment-info">
+
+              <strong>
+                Manutenção em Gel
+              </strong>
+
+              <span>
+                Quarta-feira • 14:30
+              </span>
+
+              <small>
+                Duração aproximada: 1h30
+              </small>
+
+            </div>
+
+
+            <span class="appointment-arrow" aria-hidden="true">
+
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+
+            </span>
+
+          </article>
+
+        </section>
+
+
+        <!-- SERVIÇOS -->
+
+        <section class="services-section" aria-labelledby="services-title">
+
+          <div class="section-heading">
+
+            <span class="section-eyebrow">
+              Serviços
+            </span>
+
+            <h2 id="services-title">
+              O que vamos fazer hoje?
+            </h2>
+
+            <p>
+              Escolha uma categoria para conhecer os procedimentos disponíveis.
+            </p>
+
+          </div>
+
+
+          <ul id="services-list" class="services-list">
+
+
+            <!-- UNHAS EM GEL -->
+
+            <li class="service-item" data-search="unhas gel alongamento fibra manutenção banho blindagem remoção">
+
+              <a href="unhas-em-gel.html" class="service-card">
+
+                <span class="service-icon" aria-hidden="true">
+
+                  <svg viewBox="0 0 24 24" fill="none">
+
+                    <path d="M12 3L13.4 6.6L17 8L13.4 9.4L12 13L10.6 9.4L7 8L10.6 6.6L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+                    <path d="M18.5 13L19.3 15.2L21.5 16L19.3 16.8L18.5 19L17.7 16.8L15.5 16L17.7 15.2L18.5 13Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+                  </svg>
+
+                </span>
+
+
+                <span class="service-card-content">
+
+                  <strong>
+                    Unhas em Gel
+                  </strong>
+
+                  <small>
+                    Alongamentos, banho de gel e manutenção
+                  </small>
+
+                </span>
+
+
+                <span class="service-card-arrow" aria-hidden="true">
+
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+
+                </span>
+
+              </a>
+
+            </li>
+
+
+            <!-- MANICURE -->
+
+            <li class="service-item" data-search="manicure mãos esmaltação cutilagem francesinha decoração">
+
+              <a href="manicure.html" class="service-card">
+
+                <span class="service-icon" aria-hidden="true">
+
+                  <svg viewBox="0 0 24 24" fill="none">
+
+                    <rect x="7" y="9" width="10" height="12" rx="3" stroke="currentColor" stroke-width="1.7" />
+
+                    <path d="M10 9V5H14V9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+
+                    <path d="M9 5H15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+
+                    <path d="M10 14H14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+
+                  </svg>
+
+                </span>
+
+
+                <span class="service-card-content">
+
+                  <strong>
+                    Manicure
+                  </strong>
+
+                  <small>
+                    Cuidado, esmaltação e acabamento das mãos
+                  </small>
+
+                </span>
+
+
+                <span class="service-card-arrow" aria-hidden="true">
+
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+
+                </span>
+
+              </a>
+
+            </li>
+
+
+            <!-- PEDICURE -->
+
+            <li class="service-item" data-search="pedicure pés esmaltação spa hidratação cutilagem">
+
+              <a href="pedicure.html" class="service-card">
+
+                <span class="service-icon" aria-hidden="true">
+
+                  <svg viewBox="0 0 24 24" fill="none">
+
+                    <path d="M12.5 20C10.3 20 8.5 18.3 8.5 16.1C8.5 14.7 9.2 13.4 10.3 12.7C9.9 11.7 9.7 10.6 9.7 9.5C9.7 6.9 11.1 4.8 12.8 4.8C14.6 4.8 15.9 6.8 15.9 9.3C15.9 11 15.4 12.4 14.5 13.5C15.7 14.2 16.5 15.5 16.5 17C16.5 18.7 14.8 20 12.5 20Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+                    <circle cx="8" cy="6" r="1" fill="currentColor" />
+
+                    <circle cx="10.5" cy="3.5" r="1" fill="currentColor" />
+
+                    <circle cx="13.5" cy="3" r="1" fill="currentColor" />
+
+                    <circle cx="16.3" cy="4" r="1" fill="currentColor" />
+
+                  </svg>
+
+                </span>
+
+
+                <span class="service-card-content">
+
+                  <strong>
+                    Pedicure
+                  </strong>
+
+                  <small>
+                    Cuidado completo, conforto e acabamento para os pés
+                  </small>
+
+                </span>
+
+
+                <span class="service-card-arrow" aria-hidden="true">
+
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+
+                </span>
+
+              </a>
+
+            </li>
+
+          </ul>
+
+
+          <div id="service-search-empty" class="search-empty" hidden>
+
+            <strong>
+              Nenhum serviço encontrado
+            </strong>
+
+            <p>
+              Tente pesquisar por manicure, gel ou pedicure.
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <!-- VITRINE -->
+
+        <section class="gallery-section" aria-labelledby="gallery-title">
+
+          <div class="section-heading section-heading--inline">
+
+            <div>
+
+              <span class="section-eyebrow">
+                Inspirações
+              </span>
+
+              <h2 id="gallery-title">
+                Vitrine
+              </h2>
+
+            </div>
+
+
+            <a href="galeria.html" class="section-link">
+              Ver todas
+            </a>
+
+          </div>
+
+
+          <div class="gallery-grid">
+
+            <a href="galeria.html" class="gallery-card gallery-card--one" aria-label="Ver inspiração de unhas decoradas em azul">
+
+              <img src="assets/imagens/vitrine-1.png" alt="Unhas decoradas em azul com detalhes em glitter">
+
+              <span>
+                Nail Art
+              </span>
+
+            </a>
+
+
+            <a href="galeria.html" class="gallery-card gallery-card--two" aria-label="Ver inspiração de pedicure">
+
+              <img src="assets/imagens/vitrine-2.png" alt="Pedicure com esmaltação vermelha e detalhe em glitter">
+
+              <span>
+                Pedicure
+              </span>
+
+            </a>
+
+
+            <a href="galeria.html" class="gallery-card gallery-card--three" aria-label="Ver inspiração de alongamento em gel">
+
+              <img src="assets/imagens/vitrine-3.png" alt="Alongamento de unhas com decoração delicada em tons claros">
+
+              <span>
+                Alongamento
+              </span>
+
+            </a>
+
+          </div>
+
+        </section>
+
+
+        <!-- PERFIL -->
+
+        <a href="meu-perfil.html" class="secondary-action-card">
+
+          <span class="secondary-action-icon" aria-hidden="true">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.7" />
+
+              <path d="M5 21C5 17 8 14.5 12 14.5C16 14.5 19 17 19 21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+
+            </svg>
+
+          </span>
+
+
+          <span class="secondary-action-content">
+
+            <strong>
+              Meu perfil
+            </strong>
+
+            <small>
+              Consulte seus dados e histórico de agendamentos
+            </small>
+
+          </span>
+
+
+          <span class="secondary-action-arrow" aria-hidden="true">
+            ›
+          </span>
+
+        </a>
+
+      </div>
+
+
+      <!-- ====================================================
+           VISÃO ADMINISTRADORA
+      ===================================================== -->
+
+      <div id="admin-view" class="mode-view admin-view" hidden>
+
+
+        <!-- RESUMO -->
+
+        <section class="admin-summary" aria-labelledby="admin-summary-title">
+
+          <div class="section-heading">
+
+            <span class="section-eyebrow">
+              Visão geral
+            </span>
+
+            <h2 id="admin-summary-title">
+              Seu negócio hoje
+            </h2>
+
+            <p>
+              Uma visão rápida da operação do Nuvé Studio.
+            </p>
+
+          </div>
+
+
+          <div class="metrics-grid">
+
+            <article class="metric-card">
+
+              <span class="metric-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" />
+
+                  <path d="M8 3V7M16 3V7M4 10H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+
+              </span>
+
+              <span class="metric-value">
+                6
+              </span>
+
+              <span class="metric-label">
+                Atendimentos hoje
+              </span>
+
+            </article>
+
+
+            <article class="metric-card">
+
+              <span class="metric-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 3V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+                  <path d="M16 7.5C16 5.6 14.2 4 12 4C9.8 4 8 5.4 8 7.3C8 9.3 9.5 10.1 12 10.8C14.5 11.5 16 12.4 16 14.6C16 16.7 14.2 18 12 18C9.8 18 8 16.5 8 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+
+              </span>
+
+              <span class="metric-value">
+                R$ 520
+              </span>
+
+              <span class="metric-label">
+                Previsão do dia
+              </span>
+
+            </article>
+
+
+            <article class="metric-card">
+
+              <span class="metric-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.8" />
+
+                  <circle cx="17" cy="9" r="2" stroke="currentColor" stroke-width="1.8" />
+
+                  <path d="M3.5 19C3.5 15.7 5.8 13.5 9 13.5C12.2 13.5 14.5 15.7 14.5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+                  <path d="M15 14C17.9 14 20 15.8 20.5 18.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+
+              </span>
+
+              <span class="metric-value">
+                38
+              </span>
+
+              <span class="metric-label">
+                Clientes ativos
+              </span>
+
+            </article>
+
+
+            <article class="metric-card">
+
+              <span class="metric-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 18L9 13L13 16L20 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+
+                  <path d="M15 8H20V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+              </span>
+
+              <span class="metric-value">
+                82%
+              </span>
+
+              <span class="metric-label">
+                Agenda ocupada
+              </span>
+
+            </article>
+
+          </div>
+
+        </section>
+
+
+        <!-- PRÓXIMOS ATENDIMENTOS -->
+
+        <section class="admin-next-section" aria-labelledby="admin-next-title">
+
+          <div class="section-heading section-heading--inline">
+
+            <div>
+
+              <span class="section-eyebrow">
+                Agenda
+              </span>
+
+              <h2 id="admin-next-title">
+                Próximos atendimentos
+              </h2>
+
+            </div>
+
+
+            <a href="admin-agendamentos.html" class="section-link">
+              Ver agenda
+            </a>
+
+          </div>
+
+
+          <div class="admin-appointments-list">
+
+
+            <article class="admin-appointment-row">
+
+              <div class="admin-appointment-time">
+                14:30
+              </div>
+
+              <div class="admin-appointment-client">
+
+                <strong>
+                  Isabele Mariana Vieira
+                </strong>
+
+                <span>
+                  Manutenção em Gel
+                </span>
+
+              </div>
+
+              <span class="admin-appointment-status admin-appointment-status--confirmed">
+                Confirmado
+              </span>
+
+            </article>
+
+
+            <article class="admin-appointment-row">
+
+              <div class="admin-appointment-time">
+                16:00
+              </div>
+
+              <div class="admin-appointment-client">
+
+                <strong>
+                  Luiza Martins
+                </strong>
+
+                <span>
+                  Manicure Completa
+                </span>
+
+              </div>
+
+              <span class="admin-appointment-status admin-appointment-status--pending">
+                Pendente
+              </span>
+
+            </article>
+
+
+            <article class="admin-appointment-row">
+
+              <div class="admin-appointment-time">
+                17:30
+              </div>
+
+              <div class="admin-appointment-client">
+
+                <strong>
+                  Beatriz Souza
+                </strong>
+
+                <span>
+                  Banho de Gel
+                </span>
+
+              </div>
+
+              <span class="admin-appointment-status admin-appointment-status--confirmed">
+                Confirmado
+              </span>
+
+            </article>
+
+          </div>
+
+        </section>
+
+
+        <!-- CENTRAL ADMIN -->
+
+        <section class="admin-tools-section" aria-labelledby="admin-tools-title">
+
+          <div class="section-heading">
+
+            <span class="section-eyebrow">
+              Gestão
+            </span>
+
+            <h2 id="admin-tools-title">
+              Central administrativa
+            </h2>
+
+            <p>
+              Gerencie sua operação em um só lugar.
+            </p>
+
+          </div>
+
+
+          <div class="admin-tools-grid">
+
+
+            <!-- DASHBOARD -->
+
+            <a href="dashboard.html" class="admin-tool-card admin-tool-card--featured">
+
+              <span class="admin-tool-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 19V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+                  <path d="M12 19V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+                  <path d="M19 19V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+
+              </span>
+
+
+              <span class="admin-tool-content">
+
+                <small>
+                  Indicadores
+                </small>
+
+                <strong>
+                  Dashboard
+                </strong>
+
+                <span>
+                  Acompanhe faturamento, agenda, clientes e desempenho do seu negócio.
+                </span>
+
+              </span>
+
+
+              <span class="admin-tool-arrow">
+                ›
+              </span>
+
+            </a>
+
+
+            <!-- AGENDAMENTOS -->
+
+            <a href="admin-agendamentos.html" class="admin-tool-card">
+
+              <span class="admin-tool-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" />
+
+                  <path d="M8 3V7M16 3V7M4 10H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+
+              </span>
+
+
+              <span class="admin-tool-content">
+
+                <small>
+                  Operação
+                </small>
+
+                <strong>
+                  Agendamentos
+                </strong>
+
+                <span>
+                  Confirme, reagende e organize os horários.
+                </span>
+
+              </span>
+
+
+              <span class="admin-tool-arrow">
+                ›
+              </span>
+
+            </a>
+
+
+            <!-- CLIENTES -->
+
+            <a href="admin-clientes.html" class="admin-tool-card">
+
+              <span class="admin-tool-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+
+                  <circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.8" />
+
+                  <circle cx="17" cy="9" r="2" stroke="currentColor" stroke-width="1.8" />
+
+                  <path d="M3.5 19C3.5 15.7 5.8 13.5 9 13.5C12.2 13.5 14.5 15.7 14.5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+                  <path d="M15 14C17.9 14 20 15.8 20.5 18.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+                </svg>
+
+              </span>
+
+
+              <span class="admin-tool-content">
+
+                <small>
+                  Relacionamento
+                </small>
+
+                <strong>
+                  Clientes
+                </strong>
+
+                <span>
+                  Consulte cadastro, histórico e preferências.
+                </span>
+
+              </span>
+
+
+              <span class="admin-tool-arrow">
+                ›
+              </span>
+
+            </a>
+
+
+            <!-- SERVIÇOS -->
+
+            <a href="admin-servicos.html" class="admin-tool-card">
+
+              <span class="admin-tool-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 3L13.4 6.6L17 8L13.4 9.4L12 13L10.6 9.4L7 8L10.6 6.6L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+                  <path d="M18 14L18.7 15.8L20.5 16.5L18.7 17.2L18 19L17.3 17.2L15.5 16.5L17.3 15.8L18 14Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+              </span>
+
+
+              <span class="admin-tool-content">
+
+                <small>
+                  Catálogo
+                </small>
+
+                <strong>
+                  Serviços
+                </strong>
+
+                <span>
+                  Gerencie preços, duração e disponibilidade.
+                </span>
+
+              </span>
+
+
+              <span class="admin-tool-arrow">
+                ›
+              </span>
+
+            </a>
+
+          </div>
+
+        </section>
+
+
+        <!-- AVISO DA DEMO -->
+
+        <aside class="demo-info-card">
+
+          <span class="demo-info-icon" aria-hidden="true">
+            i
+          </span>
+
+          <div>
+
+            <strong>
+              Você está na visão administrativa
+            </strong>
+
+            <p>
+              Use a chave no topo para voltar à experiência que suas clientes terão no aplicativo.
+            </p>
+
+          </div>
+
+        </aside>
+
+      </div>
+
+    </main>
+
+
+    <!-- ======================================================
+         RODAPÉ DA DEMONSTRAÇÃO
+    ======================================================= -->
+
+    <footer class="demo-footer">
+
+      <span>
+        Protótipo demonstrativo
+      </span>
+
+      <strong>
+        Sistema de Agendamento & Gestão
+      </strong>
+
+    </footer>
+
+  </div>
+
+
+  <script src="principal.js"></script>
+
+</body>
+
+</html>
