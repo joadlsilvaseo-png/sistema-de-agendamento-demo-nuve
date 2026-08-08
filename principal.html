@@ -314,7 +314,7 @@
 
             <li class="service-item" data-search="manicure mãos esmaltação cutilagem francesinha decoração">
 
-              <a href="manicure.html" class="service-card">
+              <a class="service-card" aria-disabled="true">
 
                 <span class="service-icon" aria-hidden="true">
 
@@ -363,7 +363,7 @@
 
             <li class="service-item" data-search="pedicure pés esmaltação spa hidratação cutilagem">
 
-              <a href="pedicure.html" class="service-card">
+              <a class="service-card" aria-disabled="true">
 
                 <span class="service-icon" aria-hidden="true">
 
@@ -446,16 +446,16 @@
             </div>
 
 
-            <a href="galeria.html" class="section-link">
+            <span class="section-link">
               Ver todas
-            </a>
+            </span>
 
           </div>
 
 
           <div class="gallery-grid">
 
-            <a href="galeria.html" class="gallery-card gallery-card--one" aria-label="Ver inspiração de unhas decoradas em azul">
+            <div class="gallery-card gallery-card--one">
 
               <img src="assets/imagens/vitrine-1.png" alt="Unhas decoradas em azul com detalhes em glitter">
 
@@ -463,10 +463,10 @@
                 Nail Art
               </span>
 
-            </a>
+            </div>
 
 
-            <a href="galeria.html" class="gallery-card gallery-card--two" aria-label="Ver inspiração de pedicure">
+            <div class="gallery-card gallery-card--two">
 
               <img src="assets/imagens/vitrine-2.png" alt="Pedicure com esmaltação vermelha e detalhe em glitter">
 
@@ -474,10 +474,10 @@
                 Pedicure
               </span>
 
-            </a>
+            </div>
 
 
-            <a href="galeria.html" class="gallery-card gallery-card--three" aria-label="Ver inspiração de alongamento em gel">
+            <div class="gallery-card gallery-card--three">
 
               <img src="assets/imagens/vitrine-3.png" alt="Alongamento de unhas com decoração delicada em tons claros">
 
@@ -485,7 +485,7 @@
                 Alongamento
               </span>
 
-            </a>
+            </div>
 
           </div>
 
@@ -986,6 +986,164 @@
       </div>
 
     </main>
+
+
+    <!-- ======================================================
+         NAVEGAÇÃO CLIENTE
+    ======================================================= -->
+
+    <nav id="client-navigation" class="client-navigation" aria-label="Navegação da cliente" hidden>
+
+      <a href="principal.html" class="client-navigation-item client-navigation-item--active">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path d="M4 11L12 4L20 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+
+          <path d="M6 10V20H18V10" stroke="currentColor" stroke-width="1.8" />
+
+        </svg>
+
+        <span>
+          Início
+        </span>
+
+      </a>
+
+
+      <a href="principal.html#services-title" class="client-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path d="M12 3L13.5 7L17.5 8.5L13.5 10L12 14L10.5 10L6.5 8.5L10.5 7L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+          <path d="M18 14L18.8 16.2L21 17L18.8 17.8L18 20L17.2 17.8L15 17L17.2 16.2L18 14Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+        </svg>
+
+        <span>
+          Serviços
+        </span>
+
+      </a>
+
+
+      <a href="meu-perfil.html#meus-agendamentos" class="client-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" />
+
+          <path d="M8 3V7M16 3V7M4 10H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Agenda
+        </span>
+
+      </a>
+
+
+      <a href="meu-perfil.html" class="client-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8" />
+
+          <path d="M5 21C5 17 8 14.5 12 14.5C16 14.5 19 17 19 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Perfil
+        </span>
+
+      </a>
+
+    </nav>
+
+
+    <!-- ======================================================
+         NAVEGAÇÃO ADMINISTRATIVA
+    ======================================================= -->
+
+    <nav id="admin-navigation" class="admin-navigation" aria-label="Navegação administrativa" hidden>
+
+      <a href="principal.html" class="admin-navigation-item admin-navigation-item--active">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path d="M4 11L12 4L20 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+
+          <path d="M6 10V20H18V10" stroke="currentColor" stroke-width="1.8" />
+
+        </svg>
+
+        <span>
+          Início
+        </span>
+
+      </a>
+
+
+      <a href="admin-agendamentos.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" />
+
+          <path d="M8 3V7M16 3V7M4 10H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Agenda
+        </span>
+
+      </a>
+
+
+      <a href="admin-clientes.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.8" />
+
+          <circle cx="17" cy="9" r="2" stroke="currentColor" stroke-width="1.8" />
+
+          <path d="M3.5 19C3.5 15.7 5.8 13.5 9 13.5C12.2 13.5 14.5 15.7 14.5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+          <path d="M15 14C17.9 14 20 15.8 20.5 18.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Clientes
+        </span>
+
+      </a>
+
+
+      <a href="dashboard.html" class="admin-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path d="M5 19V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+          <path d="M12 19V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+          <path d="M19 19V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Dashboard
+        </span>
+
+      </a>
+
+    </nav>
 
 
     <!-- ======================================================

@@ -1606,6 +1606,142 @@ svg {
 }
 
 /* =========================================================
+   NAVEGAÇÃO CLIENTE
+========================================================= */
+
+body[data-demo-mode="cliente"] {
+  padding-bottom: 92px;
+}
+
+.client-navigation {
+  position: fixed;
+
+  z-index: 100;
+
+  left: 50%;
+  bottom: 12px;
+
+  width: calc(100% - 24px);
+
+  max-width: 620px;
+
+  min-height: 68px;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  padding: 7px;
+
+  border: 1px solid rgba(52, 35, 58, 0.09);
+
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.92);
+
+  box-shadow: 0 14px 36px rgba(52, 35, 58, 0.16);
+
+  backdrop-filter: blur(18px);
+
+  transform: translateX(-50%);
+}
+
+.client-navigation-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  border-radius: 16px;
+
+  color: var(--color-text-light);
+
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.client-navigation-item svg {
+  width: 20px;
+  height: 20px;
+}
+
+.client-navigation-item--active {
+  background: var(--color-primary);
+
+  color: #ffffff;
+}
+
+/* =========================================================
+   NAVEGAÇÃO ADMINISTRATIVA
+========================================================= */
+
+body[data-demo-mode="admin"] {
+  padding-bottom: 92px;
+}
+
+.admin-navigation {
+  position: fixed;
+
+  z-index: 100;
+
+  left: 50%;
+  bottom: 12px;
+
+  width: calc(100% - 24px);
+
+  max-width: 620px;
+
+  min-height: 68px;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  padding: 7px;
+
+  border: 1px solid rgba(52, 35, 58, 0.09);
+
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.92);
+
+  box-shadow: 0 14px 36px rgba(52, 35, 58, 0.16);
+
+  backdrop-filter: blur(18px);
+
+  transform: translateX(-50%);
+}
+
+.admin-navigation-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  border-radius: 16px;
+
+  color: var(--color-text-light);
+
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.admin-navigation-item svg {
+  width: 20px;
+  height: 20px;
+}
+
+.admin-navigation-item--active {
+  background: var(--color-primary);
+
+  color: #ffffff;
+}
+
+/* =========================================================
    RODAPÉ
 ========================================================= */
 

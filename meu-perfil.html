@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Área da cliente do Nuvé Studio. Consulte seus dados e agendamentos.">
+
+  <meta name="theme-color" content="#34233A">
+
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <meta name="apple-mobile-web-app-title" content="Nuvé Studio">
+
+  <title>Meu Perfil | Nuvé Studio</title>
+
+
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="meu-perfil.css">
+
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
+
+    <header class="page-header">
+
+      <div class="top-bar">
+
+        <a href="principal.html" class="brand" aria-label="Nuvé Studio - Página principal">
+
+          <span class="brand-symbol" aria-hidden="true">
+            N
+          </span>
+
+          <span class="brand-text">
+            <strong>Nuvé</strong>
+            <small>Studio</small>
+          </span>
+
+        </a>
+
+
+        <span class="client-badge">
+          Cliente
+        </span>
+
+      </div>
+
+
+      <!-- ===================================================
+           PERFIL
+      ==================================================== -->
+
+      <section class="profile-hero">
+
+        <div class="hero-decoration hero-decoration--one"></div>
+
+        <div class="hero-decoration hero-decoration--two"></div>
+
+
+        <div class="profile-avatar" aria-hidden="true">
+
+          <span id="profile-initials">
+            IM
+          </span>
+
+        </div>
+
+
+        <div class="profile-hero-content">
+
+          <span class="hero-eyebrow">
+            Meu perfil
+          </span>
+
+          <h1 id="profile-name">
+            Isabele Mariana
+          </h1>
+
+          <p>
+            Seus dados, sua agenda e seu histórico de cuidados em um só lugar.
+          </p>
+
+        </div>
+
+      </section>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+      <!-- ===================================================
+           RESUMO
+      ==================================================== -->
+
+      <section class="summary-grid" aria-label="Resumo do perfil">
+
+        <article class="summary-card">
+
+          <span class="summary-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <path d="M8 4V7M16 4V7M5 10H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+              <rect x="4" y="6" width="16" height="14" rx="3" stroke="currentColor" stroke-width="1.8" />
+
+            </svg>
+
+          </span>
+
+          <strong id="summary-visits">
+            0
+          </strong>
+
+          <small>
+            atendimentos
+          </small>
+
+        </article>
+
+
+        <article class="summary-card">
+
+          <span class="summary-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <path d="M12 3L13.4 6.6L17 8L13.4 9.4L12 13L10.6 9.4L7 8L10.6 6.6L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+              <path d="M18.5 13L19.3 15.2L21.5 16L19.3 16.8L18.5 19L17.7 16.8L15.5 16L17.7 15.2L18.5 13Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+            </svg>
+
+          </span>
+
+          <strong id="summary-favorite">
+            Gel
+          </strong>
+
+          <small>
+            cuidado favorito
+          </small>
+
+        </article>
+
+
+        <article class="summary-card">
+
+          <span class="summary-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <path d="M12 21C12 21 4.5 16.7 4.5 10.5C4.5 7.5 6.6 5.5 9.2 5.5C10.7 5.5 11.7 6.3 12 7C12.3 6.3 13.3 5.5 14.8 5.5C17.4 5.5 19.5 7.5 19.5 10.5C19.5 16.7 12 21 12 21Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+
+            </svg>
+
+          </span>
+
+          <strong>
+            Recorrente
+          </strong>
+
+          <small>
+            relacionamento
+          </small>
+
+        </article>
+
+      </section>
+
+
+      <!-- ===================================================
+           PRÓXIMO AGENDAMENTO
+      ==================================================== -->
+
+      <section id="meus-agendamentos" class="content-section">
+
+        <div class="section-heading section-heading--inline">
+
+          <div>
+
+            <span class="section-eyebrow">
+              Minha agenda
+            </span>
+
+            <h2>
+              Próximo cuidado
+            </h2>
+
+          </div>
+
+
+          <span id="next-status" class="status-badge">
+            Confirmado
+          </span>
+
+        </div>
+
+
+        <article id="next-appointment-card" class="next-appointment-card">
+
+          <div class="appointment-date">
+
+            <strong id="next-day">
+              12
+            </strong>
+
+            <span id="next-month">
+              AGO
+            </span>
+
+          </div>
+
+
+          <div class="appointment-content">
+
+            <strong id="next-service">
+              Manutenção em Gel
+            </strong>
+
+            <span id="next-date-text">
+              Quarta-feira • 14:30
+            </span>
+
+            <small>
+              Nuvé Studio
+            </small>
+
+          </div>
+
+
+          <span class="appointment-arrow" aria-hidden="true">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+            </svg>
+
+          </span>
+
+        </article>
+
+
+        <div id="empty-appointment" class="empty-state" hidden>
+
+          <span class="empty-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" />
+
+              <path d="M8 3V7M16 3V7M4 10H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+            </svg>
+
+          </span>
+
+          <strong>
+            Nenhum agendamento futuro
+          </strong>
+
+          <p>
+            Escolha seu próximo cuidado e reserve um horário.
+          </p>
+
+          <a href="principal.html#services-title" class="primary-button">
+            Agendar agora
+          </a>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           HISTÓRICO
+      ==================================================== -->
+
+      <section class="content-section">
+
+        <div class="section-heading">
+
+          <span class="section-eyebrow">
+            Histórico
+          </span>
+
+          <h2>
+            Minha jornada
+          </h2>
+
+          <p>
+            Um resumo dos cuidados que já fizeram parte da sua experiência no Nuvé Studio.
+          </p>
+
+        </div>
+
+
+        <div id="history-list" class="history-list"></div>
+
+
+        <div id="history-empty" class="history-empty" hidden>
+
+          <strong>
+            Seu histórico começa aqui
+          </strong>
+
+          <p>
+            Os atendimentos concluídos aparecerão nesta área.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           DADOS PESSOAIS
+      ==================================================== -->
+
+      <section class="content-section">
+
+        <div class="section-heading section-heading--inline">
+
+          <div>
+
+            <span class="section-eyebrow">
+              Cadastro
+            </span>
+
+            <h2>
+              Meus dados
+            </h2>
+
+          </div>
+
+
+          <button id="edit-profile-button" class="text-button" type="button">
+            Editar
+          </button>
+
+        </div>
+
+
+        <form id="profile-form" class="profile-form">
+
+          <label class="field">
+
+            <span>
+              Nome
+            </span>
+
+            <input id="profile-name-input" type="text" autocomplete="name" disabled>
+
+          </label>
+
+
+          <label class="field">
+
+            <span>
+              Telefone
+            </span>
+
+            <input id="profile-phone-input" type="tel" autocomplete="tel" disabled>
+
+          </label>
+
+
+          <label class="field">
+
+            <span>
+              E-mail
+            </span>
+
+            <input id="profile-email-input" type="email" autocomplete="email" disabled>
+
+          </label>
+
+
+          <div id="form-actions" class="form-actions" hidden>
+
+            <button id="cancel-edit-button" class="secondary-button" type="button">
+              Cancelar
+            </button>
+
+            <button class="primary-button" type="submit">
+              Salvar alterações
+            </button>
+
+          </div>
+
+        </form>
+
+
+        <div id="save-feedback" class="save-feedback" role="status" hidden>
+          Dados atualizados nesta demonstração.
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         NAVEGAÇÃO CLIENTE
+    ====================================================== -->
+
+    <nav class="client-navigation" aria-label="Navegação da cliente">
+
+      <a href="principal.html" class="client-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path d="M4 11L12 4L20 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+
+          <path d="M6 10V20H18V10" stroke="currentColor" stroke-width="1.8" />
+
+        </svg>
+
+        <span>
+          Início
+        </span>
+
+      </a>
+
+
+      <a href="principal.html#services-title" class="client-navigation-item">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path d="M12 3L13.5 7L17.5 8.5L13.5 10L12 14L10.5 10L6.5 8.5L10.5 7L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+          <path d="M18 14L18.8 16.2L21 17L18.8 17.8L18 20L17.2 17.8L15 17L17.2 16.2L18 14Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+
+        </svg>
+
+        <span>
+          Agendar
+        </span>
+
+      </a>
+
+
+      <a href="meu-perfil.html#meus-agendamentos" class="client-navigation-item" data-navigation="agenda">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <rect x="4" y="5" width="16" height="15" rx="3" stroke="currentColor" stroke-width="1.8" />
+
+          <path d="M8 3V7M16 3V7M4 10H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Agenda
+        </span>
+
+      </a>
+
+
+      <a href="meu-perfil.html" class="client-navigation-item client-navigation-item--active" data-navigation="profile">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8" />
+
+          <path d="M5 21C5 17 8 14.5 12 14.5C16 14.5 19 17 19 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+
+        </svg>
+
+        <span>
+          Perfil
+        </span>
+
+      </a>
+
+    </nav>
+
+  </div>
+
+
+  <script src="meu-perfil.js"></script>
+
+</body>
+
+</html>

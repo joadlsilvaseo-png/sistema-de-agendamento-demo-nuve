@@ -16,6 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const clientView = document.getElementById("client-view");
   const adminView = document.getElementById("admin-view");
 
+  const adminNavigation = document.getElementById("admin-navigation");
+  const clientNavigation = document.getElementById("client-navigation");
+
+  const clientHomeNavigation = clientNavigation.querySelector(
+    'a[href="principal.html"]',
+  );
+
+  const clientServicesNavigation = clientNavigation.querySelector(
+    'a[href="principal.html#services-title"]',
+  );
+
   const clientSearchArea = document.getElementById("client-search-area");
 
   const clientLabel = document.getElementById("demo-client-label");
@@ -96,6 +107,9 @@ document.addEventListener("DOMContentLoaded", () => {
     clientView.hidden = isAdmin;
     adminView.hidden = !isAdmin;
 
+    adminNavigation.hidden = !isAdmin;
+    clientNavigation.hidden = isAdmin;
+
     clientSearchArea.hidden = isAdmin;
 
     /* -----------------------------------------------------
@@ -169,6 +183,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setDemoMode(selectedMode);
   });
+
+  /* =======================================================
+     NAVEGAÇÃO CLIENTE
+  ======================================================= */
+
+  function updateClientNavigationState() {
+    const isServicesArea = window.location.hash === "#services-title";
+
+    clientHomeNavigation.classList.toggle(
+      "client-navigation-item--active",
+      !isServicesArea,
+    );
+
+    clientServicesNavigation.classList.toggle(
+      "client-navigation-item--active",
+      isServicesArea,
+    );
+  }
+
+  window.addEventListener("hashchange", updateClientNavigationState);
 
   /* =======================================================
      PESQUISA DE SERVIÇOS
@@ -433,6 +467,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeDemoData();
 
   loadSavedMode();
+
+  updateClientNavigationState();
 
   filterServices();
 });
