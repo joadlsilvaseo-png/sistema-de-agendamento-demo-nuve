@@ -18,7 +18,7 @@
       </div>
       <section class="admin-hero">
         <div class="hero-decoration hero-decoration--one"></div><div class="hero-decoration hero-decoration--two"></div>
-        <div class="hero-content"><span class="hero-eyebrow">Relacionamento</span><h1>Gestão de Clientes</h1><p>Consulte cadastros e histórico real do estúdio.</p></div>
+        <div class="hero-content"><span class="hero-eyebrow">Relacionamento</span><span id="demo-mode-notice" class="demo-mode-notice" hidden>DEMONSTRAÇÃO · DADOS FICTÍCIOS</span><h1>Gestão de Clientes</h1><p id="clients-description">Consulte cadastros e histórico real do estúdio.</p></div>
       </section>
     </header>
 
@@ -34,10 +34,10 @@
         <div class="section-heading"><div><span class="section-eyebrow">Base cadastrada</span><h2>Suas clientes</h2></div><span id="clients-count" class="clients-count">Carregando…</span></div>
         <div id="clients-error" class="client-load-error" role="alert" hidden></div>
         <div id="clients-list" class="clients-list" aria-live="polite"></div>
-        <div id="empty-state" class="empty-state" hidden><span class="empty-state-icon" aria-hidden="true">♡</span><strong>Nenhuma cliente encontrada</strong><p>Os resultados vêm dos cadastros do Firestore. Tente outro termo de busca.</p></div>
+        <div id="empty-state" class="empty-state" hidden><span class="empty-state-icon" aria-hidden="true">♡</span><strong>Nenhuma cliente encontrada</strong><p id="empty-state-description">Os resultados vêm dos cadastros do Firestore. Tente outro termo de busca.</p></div>
         <button id="load-more" class="load-more-button" type="button" hidden>Carregar mais</button>
       </section>
-      <aside class="demo-info-card"><span class="demo-info-icon">i</span><div><strong>Dados protegidos</strong><p>Perfis e agendamentos são consultados no Firestore após validação administrativa no servidor. Dados financeiros não são exibidos.</p></div></aside>
+      <aside class="demo-info-card"><span class="demo-info-icon">i</span><div><strong id="clients-info-title">Dados protegidos</strong><p id="clients-info-description">Perfis e agendamentos são consultados no Firestore após validação administrativa no servidor. Dados financeiros não são exibidos.</p></div></aside>
     </main>
 
     <div id="client-modal" class="modal-overlay" hidden>

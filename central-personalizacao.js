@@ -1,6 +1,8 @@
 import { apiFetch, apiUrl } from "./nuve-api.js";
 import { auth, requireAdmin, signOut } from "./nuve-auth.js";
 import { BRANDING_DEFAULTS, contrastRatio, validarRascunho } from "./branding-ui.js";
+import { applyBranding } from "./branding.js";
+import { isDemoAdmin, isDemoMode, readDemoBranding, writeDemoBranding } from "./nuve-mode.js";
 
 const form = document.getElementById("branding-form");
 const status = document.getElementById("editor-status");
@@ -89,7 +91,7 @@ function updatePreview() {
   if (imageUrl) {
     const img = document.createElement("img");
     img.alt = "Prévia do logotipo";
-    img.src = imageUrl.startsWith("blob:") ? imageUrl : apiUrl(imageUrl);
+    img.src = imageUrl.startsWith("blob:") || imageUrl.startsWith("data:") ? imageUrl : apiUrl(imageUrl);
     previewLogo.append(img);
   } else {
     previewLogo.textContent = "N";
@@ -103,6 +105,7 @@ function updatePreview() {
   contrastWarning.hidden = valid;
   contrastWarning.textContent = "Ajuste cores e contraste. Textos e botões precisam de pelo menos 4,5:1 e todos os campos devem ser válidos.";
   saveButton.disabled = !valid;
+  if (isDemoMode()) applyBranding(draft);
 }
 
 function populate() {
@@ -124,11 +127,40 @@ function readFields() {
   draft.fonts.body = document.getElementById("font-body").value;
 }
 
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ""));
+    reader.onerror = () => reject(new Error("Não foi possível ler o logotipo selecionado."));
+    reader.readAsDataURL(file);
+  });
+}
+
 async function init() {
   initColorInputs();
-  document.getElementById("logout-button").addEventListener("click", async () => { await signOut(auth); location.replace("admin-login.html"); });
+  const logoutButton = document.getElementById("logout-button");
+  logoutButton.addEventListener("click", async () => { await signOut(auth); location.replace("admin-login.html"); });
+  if (isDemoMode()) {
+    document.body.dataset.appMode = "demo";
+    logoutButton.hidden = true;
+    if (!isDemoAdmin()) {
+      showStatus("Para abrir a Central na demonstração, volte à página principal e ative Admin na chave Cliente/Admin.", "error");
+      form.querySelectorAll("input, textarea, select, button").forEach((item) => { item.disabled = true; });
+      return;
+    }
+    saved = readDemoBranding(BRANDING_DEFAULTS);
+    draft = structuredClone(saved);
+    document.getElementById("logo-hint").textContent = "Demonstração: logotipo e preferências ficam salvos somente neste navegador.";
+    document.querySelector('label[for="logo-file"]').textContent = "Logotipo para demonstração (PNG, JPEG ou WebP; até 1 MB)";
+    document.getElementById("preview-note").textContent = "Demonstração local: as preferências salvas ficam somente neste navegador.";
+    populate();
+    showStatus("Modo demonstração: alterações e logotipo são salvos localmente neste navegador; nada é enviado ao servidor.");
+    return;
+  }
   try {
-    await requireAdmin();
+    document.body.dataset.appMode = "connected";
+    const user = await requireAdmin();
+    if (!user) return;
     const data = await apiFetch("/api/admin/branding");
     saved = { ...structuredClone(BRANDING_DEFAULTS), ...data, colors: { ...BRANDING_DEFAULTS.colors, ...data.colors }, fonts: { ...BRANDING_DEFAULTS.fonts, ...data.fonts } };
     draft = structuredClone(saved);
@@ -149,9 +181,10 @@ fileInput.addEventListener("change", () => {
     showStatus("Selecione uma imagem PNG, JPEG ou WebP.", "error");
     return;
   }
-  if (file && file.size > 5 * 1024 * 1024) {
+  const maxSize = isDemoMode() ? 1024 * 1024 : 5 * 1024 * 1024;
+  if (file && file.size > maxSize) {
     fileInput.value = "";
-    showStatus("O arquivo excede o limite de 5 MB.", "error");
+    showStatus(`O arquivo excede o limite de ${isDemoMode() ? "1 MB na demonstração" : "5 MB"}.`, "error");
     return;
   }
   if (localPreviewUrl) URL.revokeObjectURL(localPreviewUrl);
@@ -176,9 +209,24 @@ document.getElementById("discard-button").addEventListener("click", () => {
   if (localPreviewUrl) URL.revokeObjectURL(localPreviewUrl);
   localPreviewUrl = null;
   populate();
+  if (isDemoMode()) applyBranding(saved);
   showStatus("Alterações descartadas.");
 });
 document.getElementById("restore-button").addEventListener("click", () => {
+  if (isDemoMode()) {
+    localStorage.removeItem("nuve-demo-branding-v1");
+    saved = structuredClone(BRANDING_DEFAULTS);
+    draft = structuredClone(BRANDING_DEFAULTS);
+    removeLogo = false;
+    pickedFile = null;
+    fileInput.value = "";
+    if (localPreviewUrl) URL.revokeObjectURL(localPreviewUrl);
+    localPreviewUrl = null;
+    populate();
+    applyBranding(BRANDING_DEFAULTS);
+    showStatus("A aparência padrão foi restaurada nesta demonstração.", "success");
+    return;
+  }
   draft = structuredClone(BRANDING_DEFAULTS);
   removeLogo = true;
   pickedFile = null;
@@ -195,6 +243,20 @@ form.addEventListener("submit", async (event) => {
   saveButton.disabled = true;
   showStatus("Salvando alterações…");
   try {
+    if (isDemoMode()) {
+      draft.logoId = null;
+      draft.logoUrl = pickedFile ? await fileToDataUrl(pickedFile) : (removeLogo ? null : draft.logoUrl);
+      saved = writeDemoBranding(draft, BRANDING_DEFAULTS);
+      draft = structuredClone(saved);
+      pickedFile = null;
+      removeLogo = false;
+      fileInput.value = "";
+      if (localPreviewUrl) URL.revokeObjectURL(localPreviewUrl);
+      localPreviewUrl = null;
+      populate();
+      showStatus("Preferências salvas neste navegador. Elas não foram publicadas nem enviadas ao backend.", "success");
+      return;
+    }
     if (pickedFile) {
       const uploaded = await apiFetch("/api/admin/branding/logo", {
         method: "POST",

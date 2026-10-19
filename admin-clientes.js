@@ -1,5 +1,7 @@
 import { apiFetch } from "./nuve-api.js";
 import { auth, requireAdmin, signOut } from "./nuve-auth.js";
+import { isDemoAdmin, isDemoMode } from "./nuve-mode.js";
+import { getDemoAppointments, getDemoClient, readDemoClientNote, searchDemoClients, writeDemoClientNote } from "./nuve-demo-clients.js";
 
 const list = document.getElementById("clients-list");
 const count = document.getElementById("clients-count");
@@ -63,6 +65,7 @@ function clientCard(client) {
 }
 
 async function loadClients({ reset = false } = {}) {
+  if (isDemoMode()) return loadDemoClients({ reset });
   if (loading) { pendingReload = reset || pendingReload; return; }
   const version = queryVersion;
   const requestedQuery = query;
@@ -103,6 +106,68 @@ async function loadClients({ reset = false } = {}) {
   }
 }
 
+function loadDemoClients({ reset = false } = {}) {
+  if (reset) {
+    cursor = null;
+    hasMore = false;
+    list.replaceChildren();
+  }
+  const clients = searchDemoClients(query);
+  clients.forEach((client) => list.append(clientCard(client)));
+  const rendered = list.children.length;
+  count.textContent = `${rendered} cliente${rendered === 1 ? "" : "s"} fictícia${rendered === 1 ? "" : "s"}`;
+  empty.hidden = rendered > 0;
+  moreButton.hidden = true;
+  setError();
+}
+
+function openDemoProfile(uid) {
+  const client = getDemoClient(uid);
+  if (!client) {
+    setError("Perfil fictício não encontrado.");
+    return;
+  }
+  const appointments = getDemoAppointments(uid);
+  const today = new Date().toISOString().slice(0, 10);
+  const upcoming = appointments.filter((item) => item.date >= today && item.status !== "Cancelado");
+  const history = appointments.filter((item) => item.date < today);
+  const completed = history.filter((item) => item.status === "Concluído");
+  document.getElementById("modal-avatar").textContent = initials(client.name);
+  document.getElementById("modal-client-name").textContent = client.name;
+  document.getElementById("modal-client-phone").textContent = client.phone;
+  document.getElementById("modal-client-email").textContent = client.email;
+  document.getElementById("modal-visits").textContent = String(completed.length);
+  document.getElementById("modal-last-visit").textContent = friendlyDate(completed.at(-1)?.date);
+  document.getElementById("internal-note").value = readDemoClientNote(uid);
+  document.getElementById("note-form").dataset.uid = uid;
+  const renderAppointments = (target, items) => items.forEach((appointment) => {
+    const row = document.createElement("article");
+    row.className = "history-item";
+    const date = document.createElement("span");
+    date.className = "history-date";
+    date.textContent = friendlyDate(appointment.date);
+    const info = document.createElement("span");
+    info.className = "history-info";
+    const service = document.createElement("strong");
+    service.textContent = appointment.service;
+    const detail = document.createElement("span");
+    detail.textContent = `${appointment.time} • ${appointment.status}`;
+    info.append(service, detail);
+    row.append(date, info);
+    target.append(row);
+  });
+  const upcomingList = document.getElementById("upcoming-list");
+  const historyList = document.getElementById("client-history-list");
+  upcomingList.replaceChildren();
+  historyList.replaceChildren();
+  renderAppointments(upcomingList, upcoming);
+  renderAppointments(historyList, history);
+  document.getElementById("upcoming-empty").hidden = upcoming.length > 0;
+  document.getElementById("history-empty").hidden = history.length > 0;
+  document.getElementById("history-limited").hidden = true;
+  document.getElementById("note-status").textContent = "Dados fictícios da demonstração.";
+}
+
 async function openProfile(uid) {
   modal.hidden = false;
   document.body.style.overflow = "hidden";
@@ -113,6 +178,10 @@ async function openProfile(uid) {
   document.getElementById("upcoming-empty").hidden = true;
   document.getElementById("history-limited").hidden = true;
   document.getElementById("note-status").textContent = "";
+  if (isDemoMode()) {
+    openDemoProfile(uid);
+    return;
+  }
   try {
     const result = await apiFetch(`/api/admin/clients/${encodeURIComponent(uid)}`);
     const client = result.client;
@@ -183,6 +252,11 @@ document.getElementById("note-form").addEventListener("submit", async (event) =>
   button.disabled = true;
   noteStatus.textContent = "Salvando…";
   try {
+    if (isDemoMode()) {
+      writeDemoClientNote(uid, note);
+      noteStatus.textContent = "Observação salva somente neste navegador (demonstração).";
+      return;
+    }
     await apiFetch(`/api/admin/clients/${encodeURIComponent(uid)}/note`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ note }) });
     noteStatus.textContent = "Observação salva.";
   } catch (error) {
@@ -193,8 +267,27 @@ document.getElementById("note-form").addEventListener("submit", async (event) =>
 });
 
 try {
-  const user = await requireAdmin();
-  if (user) await loadClients({ reset: true });
+  if (isDemoMode()) {
+    document.body.dataset.appMode = "demo";
+    document.getElementById("logout-button").hidden = true;
+    document.getElementById("demo-mode-notice").hidden = false;
+    document.getElementById("clients-description").textContent = "Amostra fictícia para avaliar a interface. Nenhum dado de Firebase ou outro projeto é consultado.";
+    document.getElementById("empty-state-description").textContent = "Esta lista contém apenas perfis fictícios armazenados no código da demonstração.";
+    document.getElementById("clients-info-title").textContent = "Dados de demonstração";
+    document.getElementById("clients-info-description").textContent = "Amostras fictícias. Esta página não consulta Firebase, API ou banco de dados.";
+    if (!isDemoAdmin()) {
+      count.textContent = "Modo demonstração";
+      setError("Volte à página principal e ative Admin na chave Cliente/Admin para abrir esta área.");
+      search.disabled = true;
+      moreButton.hidden = true;
+    } else {
+      await loadClients({ reset: true });
+    }
+  } else {
+    document.body.dataset.appMode = "connected";
+    const user = await requireAdmin();
+    if (user) await loadClients({ reset: true });
+  }
 } catch (error) {
   setError(error.message);
 }

@@ -1,4 +1,6 @@
 import { apiUrl } from "./nuve-api-base.js";
+import { BRANDING_DEFAULTS } from "./branding-ui.js";
+import { isDemoMode, readDemoBranding } from "./nuve-mode.js";
 
 const FONT_STACKS = Object.freeze({
   "DM Sans": '"DM Sans", sans-serif',
@@ -12,7 +14,7 @@ function mixColor(color, mixWith, weight) {
   return `#${mixed.map((part) => part.toString(16).padStart(2, "0")).join("").toUpperCase()}`;
 }
 
-function applyBranding(data) {
+export function applyBranding(data) {
   const root = document.documentElement;
   const colors = data.colors || {};
   const vars = {
@@ -74,7 +76,7 @@ function applyBranding(data) {
         image.loading = "lazy";
         node.replaceChildren(image);
       }
-      image.src = apiUrl(data.logoUrl);
+      image.src = data.logoUrl.startsWith("data:") ? data.logoUrl : apiUrl(data.logoUrl);
     } else if (image) {
       image.remove();
       node.textContent = "N";
@@ -83,6 +85,10 @@ function applyBranding(data) {
 }
 
 async function loadBranding() {
+  if (isDemoMode()) {
+    applyBranding(readDemoBranding(BRANDING_DEFAULTS));
+    return;
+  }
   try {
     const response = await fetch(apiUrl("/api/public/branding"), { cache: "no-store" });
     if (!response.ok) return;

@@ -1,5 +1,6 @@
 import { auth, firebaseConfigured, onAuthStateChanged, signInWithEmailAndPassword } from "./nuve-auth.js";
 import { apiUrl } from "./nuve-api-base.js";
+import { isDemoMode } from "./nuve-mode.js";
 
 const form = document.getElementById("login-form");
 const status = document.getElementById("login-status");
@@ -11,7 +12,10 @@ function destination() {
   return allowed.has(candidate.split("?")[0]) ? candidate : "central-personalizacao.html";
 }
 
-if (!firebaseConfigured) {
+if (isDemoMode()) {
+  status.textContent = "A demonstração não usa login. Volte à página principal e alterne para Admin na chave de visualização.";
+  button.disabled = true;
+} else if (!firebaseConfigured) {
   status.textContent = "O Firebase ainda precisa ser configurado nesta instalação. Consulte o README de implantação.";
   button.disabled = true;
 }

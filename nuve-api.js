@@ -1,4 +1,5 @@
 import { auth } from "./nuve-auth.js";
+import { isDemoMode } from "./nuve-mode.js";
 
 export function apiUrl(path) {
   const base = String(window.NUVE_RUNTIME_CONFIG?.apiBaseUrl || "").replace(/\/$/, "");
@@ -6,6 +7,7 @@ export function apiUrl(path) {
 }
 
 export async function apiFetch(path, options = {}, { authenticated = true } = {}) {
+  if (isDemoMode()) throw new Error("A API real está desativada no modo demonstração.");
   const headers = new Headers(options.headers || {});
   if (authenticated) {
     if (!auth?.currentUser) throw new Error("Entre com uma conta administrativa para continuar.");

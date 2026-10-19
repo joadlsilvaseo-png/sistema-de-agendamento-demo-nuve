@@ -1,4 +1,5 @@
 .admin-logout { border:0;background:transparent;color:var(--primary,#34233a);padding:10px;cursor:pointer;font:600 13px var(--font-body,"DM Sans",sans-serif); }
+.demo-mode-notice { display:inline-flex;width:max-content;margin-bottom:8px;padding:6px 9px;border:1px solid #e7d2a8;border-radius:999px;background:#fff8e8;color:#735b31;font-size:9px;font-weight:800;letter-spacing:.06em; }
 .client-load-error { margin:14px 0;padding:12px 14px;border-radius:12px;background:#fff4f4;color:#8b3333;font-size:13px; }
 .load-more-button { display:block;width:100%;margin:16px 0;padding:12px;border:1px solid var(--border,#e9e0da);border-radius:12px;background:#fff;color:var(--primary,#34233a);font-weight:700;cursor:pointer; }
 .load-more-button:disabled { opacity:.55; }
