@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acesso administrativo | Nuvé</title>
+  <link rel="stylesheet" href="branding.css"><link rel="stylesheet" href="admin-login.css">
+</head>
+<body>
+  <main class="login-shell">
+    <a class="brand" href="principal.html"><span class="brand-symbol">N</span><span class="brand-text"><strong>Nuvé Studio</strong><small>Área administrativa</small></span></a>
+    <section class="login-card">
+      <span class="eyebrow">Acesso seguro</span><h1>Entrar na administração</h1>
+      <p>Use a conta administrativa autorizada para continuar.</p>
+      <div id="login-status" class="login-status" role="status" aria-live="polite"></div>
+      <form id="login-form">
+        <label for="email">E-mail</label><input id="email" type="email" autocomplete="username" required>
+        <label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" required>
+        <button id="login-button" type="submit">Entrar</button>
+      </form>
+    </section>
+  </main>
+  <script src="runtime-config.js"></script><script type="module" src="admin-login.js"></script><script type="module" src="branding.js"></script>
+</body>
+</html>

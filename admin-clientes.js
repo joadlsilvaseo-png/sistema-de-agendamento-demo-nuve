@@ -1,648 +1,293 @@
-/* =========================================================
-   NUVÉ STUDIO
-   admin-clientes.js
-   Protótipo demonstrativo - sem Firebase
-========================================================= */
+import { apiFetch } from "./nuve-api.js";
+import { auth, requireAdmin, signOut } from "./nuve-auth.js";
+import { isDemoAdmin, isDemoMode } from "./nuve-mode.js";
+import { getDemoAppointments, getDemoClient, readDemoClientNote, searchDemoClients, writeDemoClientNote } from "./nuve-demo-clients.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  /* =======================================================
-     CHAVES
-  ======================================================= */
+const list = document.getElementById("clients-list");
+const count = document.getElementById("clients-count");
+const empty = document.getElementById("empty-state");
+const errorBox = document.getElementById("clients-error");
+const search = document.getElementById("search-input");
+const moreButton = document.getElementById("load-more");
+const modal = document.getElementById("client-modal");
+let cursor = null;
+let hasMore = false;
+let query = "";
+let loading = false;
+let debounce;
+let queryVersion = 0;
+let pendingReload = false;
 
-  const DEMO_DATA_KEY = "nuve-demo-data";
-  const DEMO_MODE_KEY = "nuve-demo-mode";
+function initials(value) {
+  return String(value || "Cliente").trim().split(/\s+/).slice(0, 2).map((part) => part[0] || "").join("").toUpperCase() || "CL";
+}
 
-  /* =======================================================
-     ELEMENTOS
-  ======================================================= */
+function friendlyDate(value) {
+  if (!value) return "—";
+  const raw = String(value).slice(0, 10);
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(raw);
+  if (!match) return "—";
+  return new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric" })
+    .format(new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]))).replace(".", "");
+}
 
-  const metricClients = document.getElementById("metric-clients");
+function setError(message = "") {
+  errorBox.textContent = message;
+  errorBox.hidden = !message;
+}
 
-  const metricVisits = document.getElementById("metric-visits");
+function clientCard(client) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "client-card";
+  const avatar = document.createElement("span");
+  avatar.className = "client-avatar";
+  avatar.textContent = initials(client.name);
+  const content = document.createElement("span");
+  content.className = "client-card-content";
+  const name = document.createElement("strong");
+  name.textContent = client.name;
+  const phone = document.createElement("span");
+  phone.textContent = client.phone || "Telefone não informado";
+  const meta = document.createElement("span");
+  meta.className = "client-card-meta";
+  meta.textContent = client.email || `Cadastro: ${friendlyDate(client.createdAt)}`;
+  content.append(name, phone, meta);
+  const side = document.createElement("span");
+  side.className = "client-card-side";
+  const label = document.createElement("span");
+  label.className = "client-tag";
+  label.textContent = "Perfil";
+  side.append(label);
+  button.append(avatar, content, side);
+  button.addEventListener("click", () => openProfile(client.id));
+  return button;
+}
 
-  const metricRecurring = document.getElementById("metric-recurring");
-
-  const metricRevenue = document.getElementById("metric-revenue");
-
-  const searchForm = document.getElementById("search-form");
-
-  const searchInput = document.getElementById("search-input");
-
-  const clearSearchButton = document.getElementById("clear-search-button");
-
-  const filterButtons = document.querySelectorAll(".filter-button");
-
-  const clientsList = document.getElementById("clients-list");
-
-  const clientsCount = document.getElementById("clients-count");
-
-  const emptyState = document.getElementById("empty-state");
-
-  const clientModal = document.getElementById("client-modal");
-
-  const closeModalButton = document.getElementById("close-modal-button");
-
-  const modalAvatar = document.getElementById("modal-avatar");
-
-  const modalClientName = document.getElementById("modal-client-name");
-
-  const modalClientPhone = document.getElementById("modal-client-phone");
-
-  const modalVisits = document.getElementById("modal-visits");
-
-  const modalSpend = document.getElementById("modal-spend");
-
-  const modalLastVisit = document.getElementById("modal-last-visit");
-
-  const clientHistoryList = document.getElementById("client-history-list");
-
-  const historyEmpty = document.getElementById("history-empty");
-
-  /* =======================================================
-     ESTADO
-  ======================================================= */
-
-  let demoData = {
-    clientes: [],
-    agendamentos: [],
-  };
-
-  let clients = [];
-
-  let currentFilter = "all";
-
-  let searchTerm = "";
-
-  /* =======================================================
-     GARANTIR MODO ADMIN
-  ======================================================= */
-
-  localStorage.setItem(DEMO_MODE_KEY, "admin");
-
-  /* =======================================================
-     UTILITÁRIOS
-  ======================================================= */
-
-  function normalizeText(value) {
-    return String(value || "")
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .trim();
+async function loadClients({ reset = false } = {}) {
+  if (isDemoMode()) return loadDemoClients({ reset });
+  if (loading) { pendingReload = reset || pendingReload; return; }
+  const version = queryVersion;
+  const requestedQuery = query;
+  if (reset) {
+    cursor = null;
+    hasMore = false;
+    list.replaceChildren();
   }
-
-  function formatCurrency(value) {
-    return Number(value || 0).toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-      maximumFractionDigits: 0,
-    });
-  }
-
-  function getInitials(name) {
-    const parts = String(name || "")
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean);
-
-    if (!parts.length) {
-      return "NU";
+  loading = true;
+  moreButton.disabled = true;
+  setError();
+  try {
+    const params = new URLSearchParams({ limit: "20" });
+    if (requestedQuery) params.set("q", requestedQuery);
+    if (cursor) params.set("cursor", cursor);
+    const result = await apiFetch(`/api/admin/clients?${params}`);
+    if (version !== queryVersion) return;
+    result.items.forEach((item) => list.append(clientCard(item)));
+    cursor = result.nextCursor;
+    hasMore = Boolean(result.hasMore);
+    const rendered = list.children.length;
+    count.textContent = query ? `${rendered} resultado${rendered === 1 ? "" : "s"}` : `${rendered} cliente${rendered === 1 ? "" : "s"} carregada${rendered === 1 ? "" : "s"}`;
+    empty.hidden = rendered > 0;
+    moreButton.hidden = !hasMore;
+    if (result.scanLimitReached) setError("A busca foi paginada por segurança. Use Carregar mais para continuar.");
+  } catch (error) {
+    if (version === queryVersion) {
+      setError(error.message || "Não foi possível carregar a lista de clientes.");
+      if (reset) empty.hidden = true;
     }
-
-    if (parts.length === 1) {
-      return parts[0].slice(0, 2).toUpperCase();
-    }
-
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-  }
-
-  function getTodayTimestamp() {
-    const today = new Date();
-
-    today.setHours(23, 59, 59, 999);
-
-    return today.getTime();
-  }
-
-  function appointmentTimestamp(appointment) {
-    return new Date(
-      `${appointment.data}T${appointment.horario || "12:00"}:00`,
-    ).getTime();
-  }
-
-  function formatShortDate(dateString) {
-    if (!dateString) {
-      return "—";
-    }
-
-    const date = new Date(`${dateString}T12:00:00`);
-
-    return new Intl.DateTimeFormat("pt-BR", {
-      day: "2-digit",
-      month: "short",
-    })
-      .format(date)
-      .replace(".", "");
-  }
-
-  function formatFullDate(dateString) {
-    if (!dateString) {
-      return "—";
-    }
-
-    const date = new Date(`${dateString}T12:00:00`);
-
-    return new Intl.DateTimeFormat("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "2-digit",
-    }).format(date);
-  }
-
-  /* =======================================================
-     CARREGAR BASE
-  ======================================================= */
-
-  function loadData() {
-    const stored = localStorage.getItem(DEMO_DATA_KEY);
-
-    if (!stored) {
-      return;
-    }
-
-    try {
-      demoData = JSON.parse(stored);
-    } catch (error) {
-      demoData = {
-        clientes: [],
-        agendamentos: [],
-      };
-    }
-
-    if (!Array.isArray(demoData.clientes)) {
-      demoData.clientes = [];
-    }
-
-    if (!Array.isArray(demoData.agendamentos)) {
-      demoData.agendamentos = [];
+  } finally {
+    loading = false;
+    moreButton.disabled = false;
+    if (pendingReload) {
+      pendingReload = false;
+      loadClients({ reset: true });
     }
   }
+}
 
-  /* =======================================================
-     GARANTIR CLIENTES DOS AGENDAMENTOS
-  ======================================================= */
-
-  function ensureAppointmentClients() {
-    demoData.agendamentos.forEach((appointment) => {
-      if (!appointment.cliente) {
-        return;
-      }
-
-      const exists = demoData.clientes.some((client) => {
-        if (appointment.clienteId && client.id) {
-          return String(client.id) === String(appointment.clienteId);
-        }
-
-        return (
-          normalizeText(client.nome) === normalizeText(appointment.cliente)
-        );
-      });
-
-      if (!exists) {
-        demoData.clientes.push({
-          id: appointment.clienteId || `demo-${Date.now()}-${Math.random()}`,
-
-          nome: appointment.cliente,
-
-          telefone: appointment.telefone || "",
-
-          visitas: 0,
-        });
-      }
-    });
-
-    localStorage.setItem(DEMO_DATA_KEY, JSON.stringify(demoData));
+function loadDemoClients({ reset = false } = {}) {
+  if (reset) {
+    cursor = null;
+    hasMore = false;
+    list.replaceChildren();
   }
+  const clients = searchDemoClients(query);
+  clients.forEach((client) => list.append(clientCard(client)));
+  const rendered = list.children.length;
+  count.textContent = `${rendered} cliente${rendered === 1 ? "" : "s"} fictícia${rendered === 1 ? "" : "s"}`;
+  empty.hidden = rendered > 0;
+  moreButton.hidden = true;
+  setError();
+}
 
-  /* =======================================================
-     HISTÓRICO DE UMA CLIENTE
-  ======================================================= */
-
-  function getClientAppointments(client) {
-    return demoData.agendamentos
-      .filter((appointment) => {
-        if (appointment.status === "cancelado") {
-          return false;
-        }
-
-        if (client.id && appointment.clienteId) {
-          return String(client.id) === String(appointment.clienteId);
-        }
-
-        return (
-          normalizeText(appointment.cliente) === normalizeText(client.nome)
-        );
-      })
-      .sort(
-        (first, second) =>
-          appointmentTimestamp(second) - appointmentTimestamp(first),
-      );
+function openDemoProfile(uid) {
+  const client = getDemoClient(uid);
+  if (!client) {
+    setError("Perfil fictício não encontrado.");
+    return;
   }
-
-  /* =======================================================
-     MONTAR BASE ENRIQUECIDA
-  ======================================================= */
-
-  function buildClients() {
-    const today = getTodayTimestamp();
-
-    clients = demoData.clientes.map((client) => {
-      const appointments = getClientAppointments(client);
-
-      const completedOrPast = appointments.filter(
-        (appointment) => appointmentTimestamp(appointment) <= today,
-      );
-
-      const calculatedVisits = completedOrPast.length;
-
-      /*
-              Mantemos também o número fictício
-              original se ele for maior.
-            */
-
-      const visits = Math.max(Number(client.visitas || 0), calculatedVisits);
-
-      const spend = appointments.reduce(
-        (total, appointment) => total + Number(appointment.preco || 0),
-        0,
-      );
-
-      const lastAppointment = appointments[0] || null;
-
-      return {
-        ...client,
-
-        visits,
-        spend,
-        appointments,
-
-        lastAppointment,
-
-        lastVisit: lastAppointment ? lastAppointment.data : null,
-      };
-    });
-
-    /*
-      Ordena inicialmente pelas mais ativas.
-    */
-
-    clients.sort((first, second) => {
-      if (second.visits !== first.visits) {
-        return second.visits - first.visits;
-      }
-
-      return first.nome.localeCompare(second.nome, "pt-BR");
-    });
-  }
-
-  /* =======================================================
-     MÉTRICAS
-  ======================================================= */
-
-  function renderMetrics() {
-    const totalClients = clients.length;
-
-    const totalVisits = clients.reduce(
-      (total, client) => total + Number(client.visits || 0),
-      0,
-    );
-
-    const recurring = clients.filter((client) => client.visits >= 2).length;
-
-    const revenue = demoData.agendamentos
-      .filter((appointment) => appointment.status !== "cancelado")
-      .reduce(
-        (total, appointment) => total + Number(appointment.preco || 0),
-        0,
-      );
-
-    metricClients.textContent = totalClients;
-
-    metricVisits.textContent = totalVisits;
-
-    metricRecurring.textContent = recurring;
-
-    metricRevenue.textContent = formatCurrency(revenue);
-  }
-
-  /* =======================================================
-     FILTROS
-  ======================================================= */
-
-  function getFilteredClients() {
-    let result = [...clients];
-
-    if (currentFilter === "recurring") {
-      result = result.filter((client) => client.visits >= 2);
-    }
-
-    if (currentFilter === "recent") {
-      result.sort((first, second) => {
-        const firstDate = first.lastVisit
-          ? new Date(`${first.lastVisit}T12:00:00`).getTime()
-          : 0;
-
-        const secondDate = second.lastVisit
-          ? new Date(`${second.lastVisit}T12:00:00`).getTime()
-          : 0;
-
-        return secondDate - firstDate;
-      });
-    }
-
-    if (searchTerm) {
-      result = result.filter((client) => {
-        const content = normalizeText(
-          [client.nome, client.telefone, client.email].join(" "),
-        );
-
-        return content.includes(searchTerm);
-      });
-    }
-
-    return result;
-  }
-
-  /* =======================================================
-     CARD DE CLIENTE
-  ======================================================= */
-
-  function createClientCard(client) {
-    const button = document.createElement("button");
-
-    button.type = "button";
-
-    button.className = "client-card";
-
-    const recurring = client.visits >= 2;
-
-    const lastVisitLabel = client.lastVisit
-      ? `Último: ${formatShortDate(client.lastVisit)}`
-      : "Sem histórico";
-
-    button.innerHTML = `
-
-      <span class="client-avatar">
-        ${getInitials(client.nome)}
-      </span>
-
-
-      <span class="client-card-content">
-
-        <strong>
-          ${client.nome}
-        </strong>
-
-        <span>
-          ${client.telefone || "Telefone não informado"}
-        </span>
-
-
-        <span class="client-card-meta">
-
-          <span>
-            ${client.visits}
-            ${client.visits === 1 ? "visita" : "visitas"}
-          </span>
-
-          <span class="meta-dot"></span>
-
-          <span>
-            ${lastVisitLabel}
-          </span>
-
-        </span>
-
-      </span>
-
-
-      <span class="client-card-side">
-
-        <span class="client-spend">
-          ${formatCurrency(client.spend)}
-        </span>
-
-        <span
-          class="
-            client-tag
-            ${recurring ? "client-tag--recurring" : ""}
-          "
-        >
-          ${recurring ? "Recorrente" : "Cliente"}
-        </span>
-
-      </span>
-
-    `;
-
-    button.addEventListener("click", () => {
-      openClientModal(client);
-    });
-
-    return button;
-  }
-
-  /* =======================================================
-     RENDERIZAR CLIENTES
-  ======================================================= */
-
-  function renderClients() {
-    const filteredClients = getFilteredClients();
-
-    clientsList.innerHTML = "";
-
-    filteredClients.forEach((client) => {
-      clientsList.appendChild(createClientCard(client));
-    });
-
-    const count = filteredClients.length;
-
-    clientsCount.textContent = count === 1 ? "1 cliente" : `${count} clientes`;
-
-    clientsList.hidden = count === 0;
-
-    emptyState.hidden = count > 0;
-  }
-
-  /* =======================================================
-     MODAL
-  ======================================================= */
-
-  function openClientModal(client) {
-    modalAvatar.textContent = getInitials(client.nome);
-
-    modalClientName.textContent = client.nome;
-
-    modalClientPhone.textContent = client.telefone || "Telefone não informado";
-
-    modalVisits.textContent = client.visits;
-
-    modalSpend.textContent = formatCurrency(client.spend);
-
-    modalLastVisit.textContent = client.lastVisit
-      ? formatShortDate(client.lastVisit)
-      : "—";
-
-    renderClientHistory(client);
-
-    clientModal.hidden = false;
-
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeClientModal() {
-    clientModal.hidden = true;
-
-    document.body.style.overflow = "";
-  }
-
-  /* =======================================================
-     HISTÓRICO
-  ======================================================= */
-
-  function renderClientHistory(client) {
-    clientHistoryList.innerHTML = "";
-
-    const appointments = client.appointments;
-
-    if (!appointments.length) {
-      historyEmpty.hidden = false;
-
-      clientHistoryList.hidden = true;
-
-      return;
-    }
-
-    historyEmpty.hidden = true;
-
-    clientHistoryList.hidden = false;
-
-    appointments.forEach((appointment) => {
-      const item = document.createElement("article");
-
-      item.className = "history-item";
-
-      item.innerHTML = `
-
-          <span class="history-date">
-            ${formatFullDate(appointment.data)}
-          </span>
-
-
-          <span class="history-info">
-
-            <strong>
-              ${appointment.servico}
-            </strong>
-
-            <span>
-              ${appointment.horario}
-              •
-              ${appointment.status === "confirmado" ? "Confirmado" : "Pendente"}
-            </span>
-
-          </span>
-
-
-          <strong class="history-price">
-            ${formatCurrency(appointment.preco)}
-          </strong>
-
-        `;
-
-      clientHistoryList.appendChild(item);
-    });
-  }
-
-  /* =======================================================
-     FECHAR MODAL
-  ======================================================= */
-
-  closeModalButton.addEventListener("click", closeClientModal);
-
-  clientModal.addEventListener("click", (event) => {
-    if (event.target === clientModal) {
-      closeClientModal();
-    }
+  const appointments = getDemoAppointments(uid);
+  const today = new Date().toISOString().slice(0, 10);
+  const upcoming = appointments.filter((item) => item.date >= today && item.status !== "Cancelado");
+  const history = appointments.filter((item) => item.date < today);
+  const completed = history.filter((item) => item.status === "Concluído");
+  document.getElementById("modal-avatar").textContent = initials(client.name);
+  document.getElementById("modal-client-name").textContent = client.name;
+  document.getElementById("modal-client-phone").textContent = client.phone;
+  document.getElementById("modal-client-email").textContent = client.email;
+  document.getElementById("modal-visits").textContent = String(completed.length);
+  document.getElementById("modal-last-visit").textContent = friendlyDate(completed.at(-1)?.date);
+  document.getElementById("internal-note").value = readDemoClientNote(uid);
+  document.getElementById("note-form").dataset.uid = uid;
+  const renderAppointments = (target, items) => items.forEach((appointment) => {
+    const row = document.createElement("article");
+    row.className = "history-item";
+    const date = document.createElement("span");
+    date.className = "history-date";
+    date.textContent = friendlyDate(appointment.date);
+    const info = document.createElement("span");
+    info.className = "history-info";
+    const service = document.createElement("strong");
+    service.textContent = appointment.service;
+    const detail = document.createElement("span");
+    detail.textContent = `${appointment.time} • ${appointment.status}`;
+    info.append(service, detail);
+    row.append(date, info);
+    target.append(row);
   });
+  const upcomingList = document.getElementById("upcoming-list");
+  const historyList = document.getElementById("client-history-list");
+  upcomingList.replaceChildren();
+  historyList.replaceChildren();
+  renderAppointments(upcomingList, upcoming);
+  renderAppointments(historyList, history);
+  document.getElementById("upcoming-empty").hidden = upcoming.length > 0;
+  document.getElementById("history-empty").hidden = history.length > 0;
+  document.getElementById("history-limited").hidden = true;
+  document.getElementById("note-status").textContent = "Dados fictícios da demonstração.";
+}
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !clientModal.hidden) {
-      closeClientModal();
-    }
-  });
-
-  /* =======================================================
-     PESQUISA
-  ======================================================= */
-
-  searchInput.addEventListener("input", () => {
-    searchTerm = normalizeText(searchInput.value);
-
-    clearSearchButton.hidden = !searchTerm;
-
-    renderClients();
-  });
-
-  searchForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-  });
-
-  clearSearchButton.addEventListener("click", () => {
-    searchInput.value = "";
-
-    searchTerm = "";
-
-    clearSearchButton.hidden = true;
-
-    searchInput.focus();
-
-    renderClients();
-  });
-
-  /* =======================================================
-     FILTROS
-  ======================================================= */
-
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      currentFilter = button.dataset.filter;
-
-      filterButtons.forEach((item) => {
-        item.classList.remove("filter-button--active");
-      });
-
-      button.classList.add("filter-button--active");
-
-      renderClients();
-    });
-  });
-
-  /* =======================================================
-     INICIAR
-  ======================================================= */
-
-  function initialize() {
-    loadData();
-
-    ensureAppointmentClients();
-
-    buildClients();
-
-    renderMetrics();
-
-    renderClients();
+async function openProfile(uid) {
+  modal.hidden = false;
+  document.body.style.overflow = "hidden";
+  document.getElementById("modal-client-name").textContent = "Carregando perfil…";
+  document.getElementById("client-history-list").replaceChildren();
+  document.getElementById("upcoming-list").replaceChildren();
+  document.getElementById("history-empty").hidden = true;
+  document.getElementById("upcoming-empty").hidden = true;
+  document.getElementById("history-limited").hidden = true;
+  document.getElementById("note-status").textContent = "";
+  if (isDemoMode()) {
+    openDemoProfile(uid);
+    return;
   }
+  try {
+    const result = await apiFetch(`/api/admin/clients/${encodeURIComponent(uid)}`);
+    const client = result.client;
+    document.getElementById("modal-avatar").textContent = initials(client.name);
+    document.getElementById("modal-client-name").textContent = client.name;
+    document.getElementById("modal-client-phone").textContent = client.phone || "Telefone não informado";
+    document.getElementById("modal-client-email").textContent = client.email || "E-mail não informado";
+    document.getElementById("modal-visits").textContent = result.historyComplete ? String(result.completedCount) : `${result.completedCount}+`;
+    document.getElementById("modal-last-visit").textContent = friendlyDate(result.lastVisit);
+    document.getElementById("internal-note").value = result.internalNote || "";
+    document.getElementById("note-form").dataset.uid = uid;
+    const renderAppointments = (target, appointments) => appointments.forEach((appointment) => {
+      const row = document.createElement("article");
+      row.className = "history-item";
+      const date = document.createElement("span");
+      date.className = "history-date";
+      date.textContent = friendlyDate(appointment.date);
+      const info = document.createElement("span");
+      info.className = "history-info";
+      const service = document.createElement("strong");
+      service.textContent = appointment.service || "Serviço não informado";
+      const detail = document.createElement("span");
+      detail.textContent = `${appointment.time || "Horário não informado"} • ${appointment.status || "Agendado"}`;
+      info.append(service, detail);
+      row.append(date, info);
+      target.append(row);
+    });
+    const history = document.getElementById("client-history-list");
+    renderAppointments(history, result.history);
+    document.getElementById("history-empty").hidden = result.history.length > 0;
+    document.getElementById("history-limited").hidden = result.historyComplete;
+    const upcomingList = document.getElementById("upcoming-list");
+    renderAppointments(upcomingList, result.upcoming || []);
+    document.getElementById("upcoming-empty").hidden = (result.upcoming || []).length > 0;
+  } catch (error) {
+    document.getElementById("modal-client-name").textContent = "Não foi possível carregar";
+    document.getElementById("note-status").textContent = error.message;
+  }
+}
 
-  initialize();
+function closeModal() {
+  modal.hidden = true;
+  document.body.style.overflow = "";
+}
+
+document.getElementById("search-form").addEventListener("submit", (event) => event.preventDefault());
+search.addEventListener("input", () => {
+  query = search.value.trim();
+  queryVersion += 1;
+  document.getElementById("clear-search-button").hidden = !query;
+  clearTimeout(debounce);
+  debounce = setTimeout(() => loadClients({ reset: true }), 300);
 });
+document.getElementById("clear-search-button").addEventListener("click", () => {
+  search.value = ""; query = ""; document.getElementById("clear-search-button").hidden = true; loadClients({ reset: true }); search.focus();
+});
+moreButton.addEventListener("click", () => loadClients());
+document.getElementById("close-modal-button").addEventListener("click", closeModal);
+modal.addEventListener("click", (event) => { if (event.target === modal) closeModal(); });
+document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !modal.hidden) closeModal(); });
+document.getElementById("logout-button").addEventListener("click", async () => { await signOut(auth); location.replace("admin-login.html"); });
+document.getElementById("note-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const uid = event.currentTarget.dataset.uid;
+  const note = document.getElementById("internal-note").value;
+  const button = document.getElementById("save-note");
+  const noteStatus = document.getElementById("note-status");
+  button.disabled = true;
+  noteStatus.textContent = "Salvando…";
+  try {
+    if (isDemoMode()) {
+      writeDemoClientNote(uid, note);
+      noteStatus.textContent = "Observação salva somente neste navegador (demonstração).";
+      return;
+    }
+    await apiFetch(`/api/admin/clients/${encodeURIComponent(uid)}/note`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ note }) });
+    noteStatus.textContent = "Observação salva.";
+  } catch (error) {
+    noteStatus.textContent = error.message;
+  } finally {
+    button.disabled = false;
+  }
+});
+
+try {
+  if (isDemoMode()) {
+    document.body.dataset.appMode = "demo";
+    document.getElementById("logout-button").hidden = true;
+    document.getElementById("demo-mode-notice").hidden = false;
+    document.getElementById("clients-description").textContent = "Amostra fictícia para avaliar a interface. Nenhum dado de Firebase ou outro projeto é consultado.";
+    document.getElementById("empty-state-description").textContent = "Esta lista contém apenas perfis fictícios armazenados no código da demonstração.";
+    document.getElementById("clients-info-title").textContent = "Dados de demonstração";
+    document.getElementById("clients-info-description").textContent = "Amostras fictícias. Esta página não consulta Firebase, API ou banco de dados.";
+    if (!isDemoAdmin()) {
+      count.textContent = "Modo demonstração";
+      setError("Volte à página principal e ative Admin na chave Cliente/Admin para abrir esta área.");
+      search.disabled = true;
+      moreButton.hidden = true;
+    } else {
+      await loadClients({ reset: true });
+    }
+  } else {
+    document.body.dataset.appMode = "connected";
+    const user = await requireAdmin();
+    if (user) await loadClients({ reset: true });
+  }
+} catch (error) {
+  setError(error.message);
+}
