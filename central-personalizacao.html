@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#34233A">
+  <title>Central de Personalização | Nuvé</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="branding.css">
+  <link rel="stylesheet" href="central-personalizacao.css">
+</head>
+<body>
+  <div class="editor-shell">
+    <header class="editor-header">
+      <a href="principal.html" class="back-link" aria-label="Voltar à demonstração">‹</a>
+      <div class="brand">
+        <span class="brand-symbol" aria-hidden="true">N</span>
+        <span class="brand-text"><strong>Nuvé Studio</strong><small>Área administrativa</small></span>
+      </div>
+      <a class="text-button" href="admin-clientes.html">Clientes</a>
+      <button id="logout-button" class="text-button" type="button">Sair</button>
+    </header>
+
+    <main>
+      <section class="page-heading">
+        <span class="eyebrow">Seu estúdio, do seu jeito</span>
+        <h1>Central de Personalização</h1>
+        <p>Edite a identidade do aplicativo e confira a prévia antes de publicar.</p>
+      </section>
+
+      <div id="editor-status" class="status-message" role="status" aria-live="polite">Carregando configurações…</div>
+
+      <div class="editor-layout">
+        <form id="branding-form" class="settings-panel">
+          <fieldset>
+            <legend>Identidade do estúdio</legend>
+            <label class="field-label" for="studio-name">Nome comercial</label>
+            <input id="studio-name" name="studioName" maxlength="80" required>
+            <label class="field-label" for="studio-description">Descrição curta</label>
+            <textarea id="studio-description" name="description" maxlength="180" rows="3"></textarea>
+            <label class="field-label" for="logo-file">Logotipo (PNG, JPEG ou WebP; até 5 MB)</label>
+            <input id="logo-file" type="file" accept="image/png,image/jpeg,image/webp">
+            <div class="logo-actions">
+              <button id="remove-logo" class="secondary-button" type="button">Remover logotipo</button>
+              <span id="logo-hint">O padrão Nuvé é usado quando não há logotipo.</span>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Cores</legend>
+            <div id="color-fields" class="color-grid"></div>
+            <p id="contrast-warning" class="contrast-warning" role="alert" hidden></p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Tipografia</legend>
+            <label class="field-label" for="font-title">Fonte dos títulos</label>
+            <select id="font-title" name="fontTitle">
+              <option>Playfair Display</option><option>DM Sans</option>
+            </select>
+            <label class="field-label" for="font-body">Fonte de textos e interface</label>
+            <select id="font-body" name="fontBody">
+              <option>DM Sans</option><option>Playfair Display</option>
+            </select>
+          </fieldset>
+
+          <div class="form-actions">
+            <button id="save-button" class="primary-button" type="submit">Salvar alterações</button>
+            <button id="discard-button" class="secondary-button" type="button">Descartar alterações</button>
+            <button id="restore-button" class="quiet-button" type="button">Restaurar aparência padrão</button>
+          </div>
+        </form>
+
+        <section class="preview-panel" aria-labelledby="preview-heading">
+          <div class="preview-heading"><div><span class="eyebrow">Somente nesta prévia</span><h2 id="preview-heading">Visualização mobile</h2></div></div>
+          <div id="preview-device" class="preview-device">
+            <header class="preview-topbar">
+              <span id="preview-logo" class="preview-logo">N</span>
+              <span id="preview-name" class="preview-name">Nuvé Studio</span>
+            </header>
+            <div class="preview-content">
+              <span class="preview-kicker">BEM-VINDA</span>
+              <h3 id="preview-title">Seu momento de cuidado começa aqui.</h3>
+              <p id="preview-description">Escolha seu serviço e encontre o melhor horário.</p>
+              <article class="preview-card"><span>PRÓXIMO PASSO</span><strong>Escolha seu serviço</strong><small>Agende em poucos minutos</small></article>
+              <button id="preview-button" type="button" tabindex="-1">Ver serviços</button>
+              <div class="preview-divider"></div><small>Uma experiência simples para você.</small>
+            </div>
+          </div>
+          <p class="preview-note">As páginas públicas só recebem as configurações depois de salvar.</p>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="runtime-config.js"></script>
+  <script type="module" src="central-personalizacao.js"></script>
+  <script type="module" src="branding.js"></script>
+</body>
+</html>

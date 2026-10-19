@@ -1,0 +1,31 @@
+.brand-symbol {
+  overflow: hidden;
+}
+
+.brand-symbol > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.brand-symbol {
+  background: var(--primary, var(--color-primary, #34233a));
+  color: var(--button-text, #fff);
+}
+
+.access-button,
+.continue-button,
+.confirm-button,
+.save-button,
+.new-service-button,
+.primary-button {
+  background: var(--button-background, var(--primary, #34233a));
+  color: var(--button-text, #fff);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--title-color, var(--text, var(--color-text, inherit)));
+}
